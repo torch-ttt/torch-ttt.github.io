@@ -85,6 +85,7 @@
 <li class="toctree-l2"><a class="reference internal" href="_autosummary/torch_ttt.engine.ttt_pp_engine.TTTPPEngine.html">torch_ttt.engine.ttt_pp_engine.TTTPPEngine</a></li>
 <li class="toctree-l2"><a class="reference internal" href="_autosummary/torch_ttt.engine.masked_ttt_engine.MaskedTTTEngine.html">torch_ttt.engine.masked_ttt_engine.MaskedTTTEngine</a></li>
 <li class="toctree-l2"><a class="reference internal" href="_autosummary/torch_ttt.engine.actmad_engine.ActMADEngine.html">torch_ttt.engine.actmad_engine.ActMADEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/torch_ttt.engine.tent_engine.TentEngine.html">torch_ttt.engine.tent_engine.TentEngine</a></li>
 </ul>
 </li>
 </ul>
@@ -116,7 +117,7 @@
 <section id="about-torch-ttt">
 <h2>About torch<span style="border-radius: 4px; color: white; text-justify: none; padding: 0px 2px 0px 2px; background: linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3)); -moz-linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3)); -webkit-linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3));">-ttt</span><a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#about-torch-ttt" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#about-torch-ttt'"><span>#</span></a></h2>
 <p>Welcome to torch<span style="border-radius: 4px; color: white; text-justify: none; padding: 0px 2px 0px 2px; background: linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3)); -moz-linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3)); -webkit-linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3));">-ttt</span>, a comprehensive and easy-to-use Python library for applying <em>test-time training</em> methods to your PyTorch models. Whether you’re tackling small projects or managing large datasets, torch<span style="border-radius: 4px; color: white; text-justify: none; padding: 0px 2px 0px 2px; background: linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3)); -moz-linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3)); -webkit-linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3));">-ttt</span> provides a diverse set of algorithms to accommodate different needs. Our intuitive API seamlessly integrates into existing training / inference pipelines, ensuring smooth and efficient deployment without disrupting your workflow.</p>
-<p>torch<span style="border-radius: 4px; color: white; text-justify: none; padding: 0px 2px 0px 2px; background: linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3)); -moz-linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3)); -webkit-linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3));">-ttt</span> includes implementations of various TTT methods, from classical TTT <span id="id1">[<a class="reference internal" href="#id8" title="Yu Sun, Xiaolong Wang, Liu Zhuang, John Miller, Moritz Hardt, and Alexei A. Efros. Test-time training with self-supervision for generalization under distribution shifts. In Forty-first International Conference on Machine Learning. 2020.">SWZ+20</a>]</span>, to more recent methods like TTT++ <span id="id2">[<a class="reference internal" href="#id10" title="Yuejiang Liu, Parth Kothari, Bastien Germain van Delft, Baptiste Bellot-Gurlet, Taylor Mordan, and Alexandre Alahi. Ttt++: when does self-supervised test-time training fail or thrive? In Thirty-Fifth Conference on Neural Information Processing Systems. 2021.">LKvD+21</a>]</span> and ActMAD <span id="id3">[<a class="reference internal" href="#id9" title="M. Jehanzeb Mirza, Pol Jane Soneira, Wei Lin, Mateusz Kozinski, Horst Possegger, and Horst Bischof. Actmad: activation matching to align distributions for test-time training. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2023.">MSL+23</a>]</span>. The full list of the implemented methods can be found in a table below.</p>
+<p>torch<span style="border-radius: 4px; color: white; text-justify: none; padding: 0px 2px 0px 2px; background: linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3)); -moz-linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3)); -webkit-linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3));">-ttt</span> includes implementations of various TTT methods, from classical TTT <span id="id1">[<a class="reference internal" href="#id9" title="Yu Sun, Xiaolong Wang, Liu Zhuang, John Miller, Moritz Hardt, and Alexei A. Efros. Test-time training with self-supervision for generalization under distribution shifts. In Forty-first International Conference on Machine Learning. 2020.">SWZ+20</a>]</span>, to more recent methods like TTT++ <span id="id2">[<a class="reference internal" href="#id11" title="Yuejiang Liu, Parth Kothari, Bastien Germain van Delft, Baptiste Bellot-Gurlet, Taylor Mordan, and Alexandre Alahi. Ttt++: when does self-supervised test-time training fail or thrive? In Thirty-Fifth Conference on Neural Information Processing Systems. 2021.">LKvD+21</a>]</span> and ActMAD <span id="id3">[<a class="reference internal" href="#id10" title="M. Jehanzeb Mirza, Pol Jane Soneira, Wei Lin, Mateusz Kozinski, Horst Possegger, and Horst Bischof. Actmad: activation matching to align distributions for test-time training. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2023.">MSL+23</a>]</span>. The full list of the implemented methods can be found in a table below.</p>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>Method</p></th>
@@ -129,17 +130,22 @@
 <tr class="row-even"><td><p>TTT</p></td>
 <td><p><code class="xref py py-class docutils literal notranslate"><span class="pre">TTTEngine</span></code></p></td>
 <td><p>2018</p></td>
-<td><p><span id="id4">[<a class="reference internal" href="#id8" title="Yu Sun, Xiaolong Wang, Liu Zhuang, John Miller, Moritz Hardt, and Alexei A. Efros. Test-time training with self-supervision for generalization under distribution shifts. In Forty-first International Conference on Machine Learning. 2020.">SWZ+20</a>]</span></p></td>
+<td><p><span id="id4">[<a class="reference internal" href="#id9" title="Yu Sun, Xiaolong Wang, Liu Zhuang, John Miller, Moritz Hardt, and Alexei A. Efros. Test-time training with self-supervision for generalization under distribution shifts. In Forty-first International Conference on Machine Learning. 2020.">SWZ+20</a>]</span></p></td>
 </tr>
 <tr class="row-odd"><td><p>TTT++</p></td>
 <td><p><code class="xref py py-class docutils literal notranslate"><span class="pre">TTTPPEngine</span></code></p></td>
 <td><p>2021</p></td>
-<td><p><span id="id5">[<a class="reference internal" href="#id10" title="Yuejiang Liu, Parth Kothari, Bastien Germain van Delft, Baptiste Bellot-Gurlet, Taylor Mordan, and Alexandre Alahi. Ttt++: when does self-supervised test-time training fail or thrive? In Thirty-Fifth Conference on Neural Information Processing Systems. 2021.">LKvD+21</a>]</span></p></td>
+<td><p><span id="id5">[<a class="reference internal" href="#id11" title="Yuejiang Liu, Parth Kothari, Bastien Germain van Delft, Baptiste Bellot-Gurlet, Taylor Mordan, and Alexandre Alahi. Ttt++: when does self-supervised test-time training fail or thrive? In Thirty-Fifth Conference on Neural Information Processing Systems. 2021.">LKvD+21</a>]</span></p></td>
 </tr>
-<tr class="row-even"><td><p>ActMAD</p></td>
+<tr class="row-even"><td><p>TENT</p></td>
+<td><p><code class="xref py py-class docutils literal notranslate"><span class="pre">TentEngine</span></code></p></td>
+<td><p>2021</p></td>
+<td><p><span id="id6">[<a class="reference internal" href="#id12" title="Dequan Wang, Evan Shelhamer, Shaoteng Liu, Bruno Olshausen, and Trevor Darrell. Tent: fully test-time adaptation by entropy minimization. In International Conference on Learning Representations. 2021.">WSL+21</a>]</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>ActMAD</p></td>
 <td><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ActMADEngine</span></code></p></td>
 <td><p>2023</p></td>
-<td><p><span id="id6">[<a class="reference internal" href="#id9" title="M. Jehanzeb Mirza, Pol Jane Soneira, Wei Lin, Mateusz Kozinski, Horst Possegger, and Horst Bischof. Actmad: activation matching to align distributions for test-time training. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2023.">MSL+23</a>]</span></p></td>
+<td><p><span id="id7">[<a class="reference internal" href="#id10" title="M. Jehanzeb Mirza, Pol Jane Soneira, Wei Lin, Mateusz Kozinski, Horst Possegger, and Horst Bischof. Actmad: activation matching to align distributions for test-time training. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2023.">MSL+23</a>]</span></p></td>
 </tr>
 </tbody>
 </table>
@@ -168,22 +174,26 @@
 
 
 <p class="rubric">References</p>
-<div class="docutils container" id="id7">
+<div class="docutils container" id="id8">
 <div class="citation-list" role="list">
-<div class="citation" id="id10" role="doc-biblioentry">
+<div class="citation" id="id11" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>LKvD+21<span class="fn-bracket">]</span></span>
 <span class="backrefs">(<a href="#id2" role="doc-backlink">1</a>,<a href="#id5" role="doc-backlink">2</a>)</span>
 <p>Yuejiang Liu, Parth Kothari, Bastien Germain van Delft, Baptiste Bellot-Gurlet, Taylor Mordan, and Alexandre Alahi. Ttt++: when does self-supervised test-time training fail or thrive? In <em>Thirty-Fifth Conference on Neural Information Processing Systems</em>. 2021.</p>
 </div>
-<div class="citation" id="id9" role="doc-biblioentry">
+<div class="citation" id="id10" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>MSL+23<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a href="#id3" role="doc-backlink">1</a>,<a href="#id6" role="doc-backlink">2</a>)</span>
+<span class="backrefs">(<a href="#id3" role="doc-backlink">1</a>,<a href="#id7" role="doc-backlink">2</a>)</span>
 <p>M. Jehanzeb Mirza, Pol Jane Soneira, Wei Lin, Mateusz Kozinski, Horst Possegger, and Horst Bischof. Actmad: activation matching to align distributions for test-time training. In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>. 2023.</p>
 </div>
-<div class="citation" id="id8" role="doc-biblioentry">
+<div class="citation" id="id9" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>SWZ+20<span class="fn-bracket">]</span></span>
 <span class="backrefs">(<a href="#id1" role="doc-backlink">1</a>,<a href="#id4" role="doc-backlink">2</a>)</span>
 <p>Yu Sun, Xiaolong Wang, Liu Zhuang, John Miller, Moritz Hardt, and Alexei A. Efros. Test-time training with self-supervision for generalization under distribution shifts. In <em>Forty-first International Conference on Machine Learning</em>. 2020.</p>
+</div>
+<div class="citation" id="id12" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a href="#id6" role="doc-backlink">WSL+21</a><span class="fn-bracket">]</span></span>
+<p>Dequan Wang, Evan Shelhamer, Shaoteng Liu, Bruno Olshausen, and Trevor Darrell. Tent: fully test-time adaptation by entropy minimization. In <em>International Conference on Learning Representations</em>. 2021.</p>
 </div>
 </div>
 </div>
