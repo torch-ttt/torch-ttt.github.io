@@ -122,6 +122,13 @@ to download the full example code.</p>
 <p>Explore how test-time training can enhance model performance on corrupted MNIST data.</p>
 <p>In this tutorial, we will explore how the original image rotation-based <a class="reference external" href="http://proceedings.mlr.press/v119/sun20b/sun20b.pdf">Test-Time Training (TTT)</a> approach can improve model performance during inference when the data is corrupted by Gaussian noise, using the <a class="reference external" href="https://github.com/nikitadurasov/torch-ttt">torch-ttt</a> <em>Engine</em> functionality.</p>
 <p>This notebook is designed to demonstrate how seamlessly test-time training approaches can be integrated through <a class="reference external" href="https://github.com/nikitadurasov/torch-ttt">torch-ttt</a> into existing training and testing pipelines, while also showcasing the significant performance improvements achievable when applying TTT on corrupted or out-of-distribution data.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="nb">print</span><span class="p">(</span><span class="s2">"Uncomment the line below to install torch-ttt if you're running this in Colab"</span><span class="p">)</span>
+</span><span id="line-2"><span class="c1"># !pip install git+https://github.com/nikitadurasov/torch-ttt.git</span>
+</span></code></pre></div>
+</div>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">Uncomment the line below to install torch-ttt if you're running this in Colab
+</span></code></pre></div>
+</div>
 <section id="regular-model-without-ttt">
 <h2>Regular Model (without TTT)<a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#regular-model-without-ttt" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#regular-model-without-ttt'"><span>#</span></a></h2>
 <p>Below, we will start by training regular networks on MNIST data and demonstrate how susceptible it is to noise introduced during testing, resulting in significantly lower accuracy when the noise is present.</p>
@@ -268,21 +275,21 @@ to download the full example code.</p>
 </span></code></pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">Train:   0%|          | 0/938 [00:00&lt;?, ?it/s]
-</span><span id="line-2">Train:  16%|█▌        | 150/938 [00:01&lt;00:07, 102.33it/s]
-</span><span id="line-3">Train:  32%|███▏      | 300/938 [00:02&lt;00:05, 113.66it/s]
-</span><span id="line-4">Train:  48%|████▊     | 450/938 [00:03&lt;00:04, 116.44it/s]
-</span><span id="line-5">Train:  64%|██████▍   | 600/938 [00:05&lt;00:02, 119.75it/s]
-</span><span id="line-6">Train:  80%|███████▉  | 750/938 [00:06&lt;00:01, 119.65it/s]
-</span><span id="line-7">Train:  96%|█████████▌| 900/938 [00:07&lt;00:00, 120.71it/s]
-</span><span id="line-8">Train:  96%|█████████▌| 900/938 [00:07&lt;00:00, 120.71it/s, acc=0.946]
-</span><span id="line-9">Train:  96%|█████████▌| 900/938 [00:07&lt;00:00, 113.90it/s, acc=0.946]
+</span><span id="line-2">Train:  16%|█▌        | 150/938 [00:01&lt;00:08, 97.33it/s]
+</span><span id="line-3">Train:  32%|███▏      | 300/938 [00:03&lt;00:07, 80.50it/s]
+</span><span id="line-4">Train:  48%|████▊     | 450/938 [00:06&lt;00:06, 71.12it/s]
+</span><span id="line-5">Train:  64%|██████▍   | 600/938 [00:08&lt;00:04, 69.54it/s]
+</span><span id="line-6">Train:  80%|███████▉  | 750/938 [00:10&lt;00:02, 70.52it/s]
+</span><span id="line-7">Train:  96%|█████████▌| 900/938 [00:12&lt;00:00, 69.62it/s]
+</span><span id="line-8">Train:  96%|█████████▌| 900/938 [00:13&lt;00:00, 69.62it/s, acc=0.946]
+</span><span id="line-9">Train:  96%|█████████▌| 900/938 [00:13&lt;00:00, 69.14it/s, acc=0.946]
 </span><span id="line-10">
 </span><span id="line-11">Test:   0%|          | 0/313 [00:00&lt;?, ?it/s]
-</span><span id="line-12">Test:  32%|███▏      | 100/313 [00:00&lt;00:00, 487.12it/s]
-</span><span id="line-13">Test:  64%|██████▍   | 200/313 [00:00&lt;00:00, 486.39it/s]
-</span><span id="line-14">Test:  96%|█████████▌| 300/313 [00:00&lt;00:00, 497.20it/s]
-</span><span id="line-15">Test:  96%|█████████▌| 300/313 [00:00&lt;00:00, 497.20it/s, acc=96.1]
-</span><span id="line-16">Test:  96%|█████████▌| 300/313 [00:00&lt;00:00, 475.15it/s, acc=96.1]
+</span><span id="line-12">Test:  32%|███▏      | 100/313 [00:00&lt;00:00, 381.01it/s]
+</span><span id="line-13">Test:  64%|██████▍   | 200/313 [00:00&lt;00:00, 377.09it/s]
+</span><span id="line-14">Test:  96%|█████████▌| 300/313 [00:00&lt;00:00, 382.35it/s]
+</span><span id="line-15">Test:  96%|█████████▌| 300/313 [00:00&lt;00:00, 382.35it/s, acc=96.1]
+</span><span id="line-16">Test:  96%|█████████▌| 300/313 [00:00&lt;00:00, 363.20it/s, acc=96.1]
 </span></code></pre></div>
 </div>
 </section>
@@ -317,11 +324,11 @@ to download the full example code.</p>
 </span></code></pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">Test:   0%|          | 0/313 [00:00&lt;?, ?it/s]
-</span><span id="line-2">Test:  32%|███▏      | 100/313 [00:00&lt;00:00, 450.05it/s]
-</span><span id="line-3">Test:  64%|██████▍   | 200/313 [00:00&lt;00:00, 441.11it/s]
-</span><span id="line-4">Test:  96%|█████████▌| 300/313 [00:00&lt;00:00, 440.83it/s]
-</span><span id="line-5">Test:  96%|█████████▌| 300/313 [00:00&lt;00:00, 440.83it/s, acc=54.3]
-</span><span id="line-6">Test:  96%|█████████▌| 300/313 [00:00&lt;00:00, 424.49it/s, acc=54.3]
+</span><span id="line-2">Test:  32%|███▏      | 100/313 [00:00&lt;00:00, 258.99it/s]
+</span><span id="line-3">Test:  64%|██████▍   | 200/313 [00:00&lt;00:00, 316.00it/s]
+</span><span id="line-4">Test:  96%|█████████▌| 300/313 [00:00&lt;00:00, 339.04it/s]
+</span><span id="line-5">Test:  96%|█████████▌| 300/313 [00:00&lt;00:00, 339.04it/s, acc=54.3]
+</span><span id="line-6">Test:  96%|█████████▌| 300/313 [00:00&lt;00:00, 310.03it/s, acc=54.3]
 </span></code></pre></div>
 </div>
 </section>
@@ -376,21 +383,21 @@ to download the full example code.</p>
 </span></code></pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">Train:   0%|          | 0/938 [00:00&lt;?, ?it/s]
-</span><span id="line-2">Train:  16%|█▌        | 150/938 [00:04&lt;00:24, 31.98it/s]
-</span><span id="line-3">Train:  32%|███▏      | 300/938 [00:09&lt;00:21, 29.86it/s]
-</span><span id="line-4">Train:  48%|████▊     | 450/938 [00:15&lt;00:17, 28.26it/s]
-</span><span id="line-5">Train:  64%|██████▍   | 600/938 [00:20&lt;00:12, 28.07it/s]
-</span><span id="line-6">Train:  80%|███████▉  | 750/938 [00:26&lt;00:06, 28.24it/s]
-</span><span id="line-7">Train:  96%|█████████▌| 900/938 [00:31&lt;00:01, 28.34it/s]
-</span><span id="line-8">Train:  96%|█████████▌| 900/938 [00:32&lt;00:01, 28.34it/s, acc=0.946]
-</span><span id="line-9">Train:  96%|█████████▌| 900/938 [00:32&lt;00:01, 27.57it/s, acc=0.946]
+</span><span id="line-2">Train:  16%|█▌        | 150/938 [00:08&lt;00:43, 18.24it/s]
+</span><span id="line-3">Train:  32%|███▏      | 300/938 [00:16&lt;00:34, 18.41it/s]
+</span><span id="line-4">Train:  48%|████▊     | 450/938 [00:24&lt;00:26, 18.74it/s]
+</span><span id="line-5">Train:  64%|██████▍   | 600/938 [00:32&lt;00:18, 18.40it/s]
+</span><span id="line-6">Train:  80%|███████▉  | 750/938 [00:41&lt;00:10, 18.06it/s]
+</span><span id="line-7">Train:  96%|█████████▌| 900/938 [00:48&lt;00:02, 18.38it/s]
+</span><span id="line-8">Train:  96%|█████████▌| 900/938 [00:50&lt;00:02, 18.38it/s, acc=0.946]
+</span><span id="line-9">Train:  96%|█████████▌| 900/938 [00:50&lt;00:02, 17.67it/s, acc=0.946]
 </span><span id="line-10">
 </span><span id="line-11">Test:   0%|          | 0/313 [00:00&lt;?, ?it/s]
-</span><span id="line-12">Test:  32%|███▏      | 100/313 [00:00&lt;00:00, 471.78it/s]
-</span><span id="line-13">Test:  64%|██████▍   | 200/313 [00:00&lt;00:00, 485.09it/s]
-</span><span id="line-14">Test:  96%|█████████▌| 300/313 [00:00&lt;00:00, 463.23it/s]
-</span><span id="line-15">Test:  96%|█████████▌| 300/313 [00:00&lt;00:00, 463.23it/s, acc=96.1]
-</span><span id="line-16">Test:  96%|█████████▌| 300/313 [00:00&lt;00:00, 449.87it/s, acc=96.1]
+</span><span id="line-12">Test:  32%|███▏      | 100/313 [00:00&lt;00:00, 352.10it/s]
+</span><span id="line-13">Test:  64%|██████▍   | 200/313 [00:00&lt;00:00, 356.06it/s]
+</span><span id="line-14">Test:  96%|█████████▌| 300/313 [00:00&lt;00:00, 358.84it/s]
+</span><span id="line-15">Test:  96%|█████████▌| 300/313 [00:00&lt;00:00, 358.84it/s, acc=96.1]
+</span><span id="line-16">Test:  96%|█████████▌| 300/313 [00:00&lt;00:00, 340.95it/s, acc=96.1]
 </span></code></pre></div>
 </div>
 </section>
@@ -422,11 +429,11 @@ to download the full example code.</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">### No optimization ###
 </span><span id="line-2">
 </span><span id="line-3">Test:   0%|          | 0/313 [00:00&lt;?, ?it/s]
-</span><span id="line-4">Test:  32%|███▏      | 100/313 [00:00&lt;00:00, 329.08it/s]
-</span><span id="line-5">Test:  64%|██████▍   | 200/313 [00:00&lt;00:00, 330.80it/s]
-</span><span id="line-6">Test:  96%|█████████▌| 300/313 [00:00&lt;00:00, 327.21it/s]
-</span><span id="line-7">Test:  96%|█████████▌| 300/313 [00:00&lt;00:00, 327.21it/s, acc=55.2]
-</span><span id="line-8">Test:  96%|█████████▌| 300/313 [00:00&lt;00:00, 314.90it/s, acc=55.2]
+</span><span id="line-4">Test:  32%|███▏      | 100/313 [00:00&lt;00:00, 225.05it/s]
+</span><span id="line-5">Test:  64%|██████▍   | 200/313 [00:00&lt;00:00, 250.68it/s]
+</span><span id="line-6">Test:  96%|█████████▌| 300/313 [00:01&lt;00:00, 253.63it/s]
+</span><span id="line-7">Test:  96%|█████████▌| 300/313 [00:01&lt;00:00, 253.63it/s, acc=55.2]
+</span><span id="line-8">Test:  96%|█████████▌| 300/313 [00:01&lt;00:00, 240.57it/s, acc=55.2]
 </span></code></pre></div>
 </div>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="nb">print</span><span class="p">(</span><span class="s2">"### Number of optimization steps: 1 ###"</span><span class="p">)</span>
@@ -437,11 +444,11 @@ to download the full example code.</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">### Number of optimization steps: 1 ###
 </span><span id="line-2">
 </span><span id="line-3">Test:   0%|          | 0/313 [00:00&lt;?, ?it/s]
-</span><span id="line-4">Test:  32%|███▏      | 100/313 [00:01&lt;00:03, 61.05it/s]
-</span><span id="line-5">Test:  64%|██████▍   | 200/313 [00:03&lt;00:01, 59.57it/s]
-</span><span id="line-6">Test:  96%|█████████▌| 300/313 [00:06&lt;00:00, 46.76it/s]
-</span><span id="line-7">Test:  96%|█████████▌| 300/313 [00:06&lt;00:00, 46.76it/s, acc=58.1]
-</span><span id="line-8">Test:  96%|█████████▌| 300/313 [00:06&lt;00:00, 46.67it/s, acc=58.1]
+</span><span id="line-4">Test:  32%|███▏      | 100/313 [00:02&lt;00:05, 38.93it/s]
+</span><span id="line-5">Test:  64%|██████▍   | 200/313 [00:05&lt;00:02, 39.08it/s]
+</span><span id="line-6">Test:  96%|█████████▌| 300/313 [00:07&lt;00:00, 38.48it/s]
+</span><span id="line-7">Test:  96%|█████████▌| 300/313 [00:08&lt;00:00, 38.48it/s, acc=58.1]
+</span><span id="line-8">Test:  96%|█████████▌| 300/313 [00:08&lt;00:00, 37.03it/s, acc=58.1]
 </span></code></pre></div>
 </div>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="nb">print</span><span class="p">(</span><span class="s2">"### Number of optimization steps: 2 ###"</span><span class="p">)</span>
@@ -452,11 +459,11 @@ to download the full example code.</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">### Number of optimization steps: 2 ###
 </span><span id="line-2">
 </span><span id="line-3">Test:   0%|          | 0/313 [00:00&lt;?, ?it/s]
-</span><span id="line-4">Test:  32%|███▏      | 100/313 [00:03&lt;00:08, 25.70it/s]
-</span><span id="line-5">Test:  64%|██████▍   | 200/313 [00:06&lt;00:03, 30.86it/s]
-</span><span id="line-6">Test:  96%|█████████▌| 300/313 [00:09&lt;00:00, 32.35it/s]
-</span><span id="line-7">Test:  96%|█████████▌| 300/313 [00:09&lt;00:00, 32.35it/s, acc=64.6]
-</span><span id="line-8">Test:  96%|█████████▌| 300/313 [00:09&lt;00:00, 30.21it/s, acc=64.6]
+</span><span id="line-4">Test:  32%|███▏      | 100/313 [00:04&lt;00:09, 21.58it/s]
+</span><span id="line-5">Test:  64%|██████▍   | 200/313 [00:09&lt;00:05, 21.59it/s]
+</span><span id="line-6">Test:  96%|█████████▌| 300/313 [00:14&lt;00:00, 21.27it/s]
+</span><span id="line-7">Test:  96%|█████████▌| 300/313 [00:14&lt;00:00, 21.27it/s, acc=64.6]
+</span><span id="line-8">Test:  96%|█████████▌| 300/313 [00:14&lt;00:00, 20.55it/s, acc=64.6]
 </span></code></pre></div>
 </div>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="nb">print</span><span class="p">(</span><span class="s2">"### Number of optimization steps: 3 ###"</span><span class="p">)</span>
@@ -467,14 +474,14 @@ to download the full example code.</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">### Number of optimization steps: 3 ###
 </span><span id="line-2">
 </span><span id="line-3">Test:   0%|          | 0/313 [00:00&lt;?, ?it/s]
-</span><span id="line-4">Test:  32%|███▏      | 100/313 [00:04&lt;00:09, 21.81it/s]
-</span><span id="line-5">Test:  64%|██████▍   | 200/313 [00:13&lt;00:08, 14.02it/s]
-</span><span id="line-6">Test:  96%|█████████▌| 300/313 [00:18&lt;00:00, 16.72it/s]
-</span><span id="line-7">Test:  96%|█████████▌| 300/313 [00:18&lt;00:00, 16.72it/s, acc=68.2]
-</span><span id="line-8">Test:  96%|█████████▌| 300/313 [00:18&lt;00:00, 16.11it/s, acc=68.2]
+</span><span id="line-4">Test:  32%|███▏      | 100/313 [00:08&lt;00:17, 12.19it/s]
+</span><span id="line-5">Test:  64%|██████▍   | 200/313 [00:15&lt;00:08, 13.27it/s]
+</span><span id="line-6">Test:  96%|█████████▌| 300/313 [00:22&lt;00:00, 13.18it/s]
+</span><span id="line-7">Test:  96%|█████████▌| 300/313 [00:24&lt;00:00, 13.18it/s, acc=68.2]
+</span><span id="line-8">Test:  96%|█████████▌| 300/313 [00:24&lt;00:01, 12.35it/s, acc=68.2]
 </span></code></pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (1 minutes 18.901 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (1 minutes 55.215 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-01-mnist-ttt-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/25c1caf82d09cf4ef3b645741aa5dd75/01_mnist_ttt.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">01_mnist_ttt.ipynb</span></code></a></p>
@@ -539,6 +546,6 @@ to download the full example code.</p>
 <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
 <script defer="defer" src="../_static/theme.js?v=e14a7d8a"></script>
 <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-<script src="../_static/js/theme.js?v=402109e3"></script>
+<script src="../_static/js/theme.js?v=f24de042"></script>
 </body>
 </html>
