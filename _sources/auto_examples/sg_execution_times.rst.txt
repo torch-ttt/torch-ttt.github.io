@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:00.000** total execution time for 1 file **from auto_examples**:
+**00:00.000** total execution time for 2 files **from auto_examples**:
 
 .. container::
 
@@ -33,5 +33,8 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_auto_examples_01_mnist_TTT.py` (``01_mnist_TTT.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr_auto_examples_02_imagenet_tent.py` (``02_imagenet_tent.py``)
      - 00:00.000
      - 0.0
