@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:00.000** total execution time for 2 files **from auto_examples**:
+**00:00.000** total execution time for 3 files **from auto_examples**:
 
 .. container::
 
@@ -36,5 +36,8 @@ Computation times
      - 00:00.000
      - 0.0
    * - :ref:`sphx_glr_auto_examples_02_imagenet_tent.py` (``02_imagenet_tent.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr_auto_examples_03_mae_bert.py` (``03_mae_bert.py``)
      - 00:00.000
      - 0.0

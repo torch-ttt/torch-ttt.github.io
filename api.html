@@ -15,7 +15,7 @@
         gtag('js', new Date());
         gtag('config', 'G-NRNXK42JKJ');
     </script>
-<title>API Reference | torch&lt;span style='border-radius: 4px; color: white; text-justify: none; padding: 0px 2px 0px 2px; background: linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3)); -moz-linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3)); -webkit-linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3));'&gt;-ttt&lt;/span&gt;</title>
+<title>API Reference | torch-ttt</title>
 <meta content="API Reference | torch&lt;span style='border-radius: 4px; color: white; text-justify: none; padding: 0px 2px 0px 2px; background: linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3)); -moz-linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3)); -webkit-linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3));'&gt;-ttt&lt;/span&gt;" property="og:title"/>
 <meta content="API Reference | torch&lt;span style='border-radius: 4px; color: white; text-justify: none; padding: 0px 2px 0px 2px; background: linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3)); -moz-linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3)); -webkit-linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3));'&gt;-ttt&lt;/span&gt;" name="twitter:title"/>
 <link href="_static/pygments.css?v=82fa1eaf" rel="stylesheet" type="text/css"/>
@@ -29,8 +29,8 @@
 <link href="_static/torch-ttt.svg" rel="icon"/>
 <link href="search.html" rel="search" title="Search"/>
 <link href="genindex.html" rel="index" title="Index"/>
-<link href="_autosummary/torch_ttt.engine.ttt_engine.TTTEngine.html" rel="next" title="torch_ttt.engine.ttt_engine.TTTEngine"/>
-<link href="auto_examples/02_imagenet_tent.html" rel="prev" title="ImageNet Robustness with TENT"/>
+<link href="_autosummary/torch_ttt.engine.ttt_engine.TTTEngine.html" rel="next" title="TTTEngine"/>
+<link href="auto_examples/03_mae_bert.html" rel="prev" title="Test-Time Training for Corrupted WILDS Dataset"/>
 </head>
 <body :class="{ 'overflow-hidden': showSidebar }" class="min-h-screen font-sans antialiased bg-background text-foreground" x-data="{ showSidebar: false, showScrollTop: false }">
 <div @click.self="showSidebar = false" class="fixed inset-0 z-50 overflow-hidden bg-background/80 backdrop-blur-sm md:hidden" x-cloak="" x-show="showSidebar"></div><div class="relative flex flex-col min-h-screen" id="page"><a class="absolute top-0 left-0 z-[100] block bg-background p-4 text-xl transition -translate-x-full opacity-0 focus:translate-x-0 focus:opacity-100" href="#content">
@@ -77,17 +77,21 @@
 <li class="toctree-l1" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="reference internal expandable" href="auto_examples/index.html">Tutorials<button @click.prevent.stop="expanded = !expanded" type="button"><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul x-show="expanded">
 <li class="toctree-l2"><a class="reference internal" href="auto_examples/01_mnist_TTT.html">TTT for Corrupted MNIST</a></li>
 <li class="toctree-l2"><a class="reference internal" href="auto_examples/02_imagenet_tent.html">ImageNet Robustness with TENT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auto_examples/03_mae_bert.html">Test-Time Training for Corrupted WILDS Dataset</a></li>
 </ul>
 </li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Documentation:</span></p>
 <ul class="current">
 <li class="toctree-l1 current" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="current reference internal expandable" href="#">API Reference<button @click.prevent.stop="expanded = !expanded" type="button"><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul x-show="expanded">
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/torch_ttt.engine.ttt_engine.TTTEngine.html">torch_ttt.engine.ttt_engine.TTTEngine</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/torch_ttt.engine.ttt_pp_engine.TTTPPEngine.html">torch_ttt.engine.ttt_pp_engine.TTTPPEngine</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/torch_ttt.engine.masked_ttt_engine.MaskedTTTEngine.html">torch_ttt.engine.masked_ttt_engine.MaskedTTTEngine</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/torch_ttt.engine.actmad_engine.ActMADEngine.html">torch_ttt.engine.actmad_engine.ActMADEngine</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/torch_ttt.engine.tent_engine.TentEngine.html">torch_ttt.engine.tent_engine.TentEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/torch_ttt.engine.ttt_engine.TTTEngine.html">TTTEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/torch_ttt.engine.ttt_pp_engine.TTTPPEngine.html">TTTPPEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/torch_ttt.engine.masked_ttt_engine.MaskedTTTEngine.html">MaskedTTTEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/torch_ttt.engine.actmad_engine.ActMADEngine.html">ActMADEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/torch_ttt.engine.tent_engine.TentEngine.html">TentEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/torch_ttt.engine.eata_engine.EataEngine.html">EataEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/torch_ttt.engine.memo_engine.MemoEngine.html">MemoEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/torch_ttt.engine.deyo_engine.DeYOEngine.html">DeYOEngine</a></li>
 </ul>
 </li>
 </ul>
@@ -126,7 +130,7 @@
 <td><p><strong>TTT++</strong> approach: feature alignment-based + SimCLR loss.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/torch_ttt.engine.masked_ttt_engine.MaskedTTTEngine.html#torch_ttt.engine.masked_ttt_engine.MaskedTTTEngine" title="torch_ttt.engine.masked_ttt_engine.MaskedTTTEngine"><code class="xref py py-obj docutils literal notranslate"><span class="pre">masked_ttt_engine.MaskedTTTEngine</span></code></a></p></td>
-<td><p>Masked autoencoders-based <strong>test-time training</strong> approach.</p></td>
+<td><p>Masked token prediction-based <strong>test-time training</strong> engine.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="_autosummary/torch_ttt.engine.actmad_engine.ActMADEngine.html#torch_ttt.engine.actmad_engine.ActMADEngine" title="torch_ttt.engine.actmad_engine.ActMADEngine"><code class="xref py py-obj docutils literal notranslate"><span class="pre">actmad_engine.ActMADEngine</span></code></a></p></td>
 <td><p><strong>ActMAD</strong> approach: multi-level pixel-wise feature alignment.</p></td>
@@ -134,22 +138,31 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/torch_ttt.engine.tent_engine.TentEngine.html#torch_ttt.engine.tent_engine.TentEngine" title="torch_ttt.engine.tent_engine.TentEngine"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tent_engine.TentEngine</span></code></a></p></td>
 <td><p><strong>TENT</strong>: Fully test-time adaptation by entropy minimization.</p></td>
 </tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/torch_ttt.engine.eata_engine.EataEngine.html#torch_ttt.engine.eata_engine.EataEngine" title="torch_ttt.engine.eata_engine.EataEngine"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eata_engine.EataEngine</span></code></a></p></td>
+<td><p><strong>EATA</strong>: Efficient Test-Time Adaptation without Forgetting.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/torch_ttt.engine.memo_engine.MemoEngine.html#torch_ttt.engine.memo_engine.MemoEngine" title="torch_ttt.engine.memo_engine.MemoEngine"><code class="xref py py-obj docutils literal notranslate"><span class="pre">memo_engine.MemoEngine</span></code></a></p></td>
+<td><p><strong>MEMO</strong>: Test-Time Robustness via Augmentation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/torch_ttt.engine.deyo_engine.DeYOEngine.html#torch_ttt.engine.deyo_engine.DeYOEngine" title="torch_ttt.engine.deyo_engine.DeYOEngine"><code class="xref py py-obj docutils literal notranslate"><span class="pre">deyo_engine.DeYOEngine</span></code></a></p></td>
+<td><p><strong>DeYO</strong>: Destroy Your Object – Test-Time Adaptation with PLPD.</p></td>
+</tr>
 </tbody>
 </table>
 </section>
 </section>
 </div><div class="flex justify-between items-center pt-6 mt-12 border-t border-border gap-4">
 <div class="mr-auto">
-<a class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors border border-input hover:bg-accent hover:text-accent-foreground py-2 px-4" href="auto_examples/02_imagenet_tent.html">
+<a class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors border border-input hover:bg-accent hover:text-accent-foreground py-2 px-4" href="auto_examples/03_mae_bert.html">
 <svg class="mr-2 h-4 w-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
 <polyline points="15 18 9 12 15 6"></polyline>
 </svg>
-        ImageNet Robustness with TENT
+        Test-Time Training for Corrupted WILDS Dataset
       </a>
 </div>
 <div class="ml-auto">
 <a class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors border border-input hover:bg-accent hover:text-accent-foreground py-2 px-4" href="_autosummary/torch_ttt.engine.ttt_engine.TTTEngine.html">
-        torch_ttt.engine.ttt_engine.TTTEngine
+        TTTEngine
         <svg class="ml-2 h-4 w-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
 <polyline points="9 18 15 12 9 6"></polyline>
 </svg>

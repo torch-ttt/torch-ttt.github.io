@@ -1,0 +1,9 @@
+﻿.. role:: hidden
+    :class: hidden-section
+.. currentmodule:: torch_ttt.engine.eata_engine
+
+EataEngine
+==========
+
+.. autoclass:: EataEngine
+    :members:

@@ -16,7 +16,7 @@
         gtag('config', 'G-NRNXK42JKJ');
     </script>
     
-  <title>torch_ttt.engine.ttt_pp_engine | torch&lt;span style=&#39;border-radius: 4px; color: white; text-justify: none; padding: 0px 2px 0px 2px; background: linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3)); -moz-linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3)); -webkit-linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3));&#39;&gt;-ttt&lt;/span&gt;</title>
+  <title>torch_ttt.engine.ttt_pp_engine | torch-ttt</title>
   <meta property="og:title" content="torch_ttt.engine.ttt_pp_engine | torch&lt;span style=&#39;border-radius: 4px; color: white; text-justify: none; padding: 0px 2px 0px 2px; background: linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3)); -moz-linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3)); -webkit-linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3));&#39;&gt;-ttt&lt;/span&gt;" />
   <meta name="twitter:title" content="torch_ttt.engine.ttt_pp_engine | torch&lt;span style=&#39;border-radius: 4px; color: white; text-justify: none; padding: 0px 2px 0px 2px; background: linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3)); -moz-linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3)); -webkit-linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3));&#39;&gt;-ttt&lt;/span&gt;" />
   <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=82fa1eaf" />
@@ -103,17 +103,21 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Tutorials</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../auto_examples/01_mnist_TTT.html">TTT for Corrupted MNIST</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../auto_examples/02_imagenet_tent.html">ImageNet Robustness with TENT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../auto_examples/03_mae_bert.html">Test-Time Training for Corrupted WILDS Dataset</a></li>
 </ul>
 </li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Documentation:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api.html">API Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/torch_ttt.engine.ttt_engine.TTTEngine.html">torch_ttt.engine.ttt_engine.TTTEngine</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/torch_ttt.engine.ttt_pp_engine.TTTPPEngine.html">torch_ttt.engine.ttt_pp_engine.TTTPPEngine</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/torch_ttt.engine.masked_ttt_engine.MaskedTTTEngine.html">torch_ttt.engine.masked_ttt_engine.MaskedTTTEngine</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/torch_ttt.engine.actmad_engine.ActMADEngine.html">torch_ttt.engine.actmad_engine.ActMADEngine</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/torch_ttt.engine.tent_engine.TentEngine.html">torch_ttt.engine.tent_engine.TentEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/torch_ttt.engine.ttt_engine.TTTEngine.html">TTTEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/torch_ttt.engine.ttt_pp_engine.TTTPPEngine.html">TTTPPEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/torch_ttt.engine.masked_ttt_engine.MaskedTTTEngine.html">MaskedTTTEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/torch_ttt.engine.actmad_engine.ActMADEngine.html">ActMADEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/torch_ttt.engine.tent_engine.TentEngine.html">TentEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/torch_ttt.engine.eata_engine.EataEngine.html">EataEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/torch_ttt.engine.memo_engine.MemoEngine.html">MemoEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/torch_ttt.engine.deyo_engine.DeYOEngine.html">DeYOEngine</a></li>
 </ul>
 </li>
 </ul>
@@ -302,6 +306,8 @@
 </span><span id="line-140">
 </span><span id="line-141">        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Features should be 2D tensor.&quot;</span><span class="p">)</span>
 </span><span id="line-142">
+<div class="viewcode-block" id="TTTPPEngine.ttt_forward">
+<a class="viewcode-back" href="../../../_autosummary/torch_ttt.engine.ttt_pp_engine.TTTPPEngine.html#torch_ttt.engine.ttt_pp_engine.TTTPPEngine.ttt_forward">[docs]</a>
 </span><span id="line-143">    <span class="k">def</span><span class="w"> </span><span class="nf">ttt_forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
 </span><span id="line-144"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Forward pass of the model.</span>
 </span><span id="line-145">
@@ -372,7 +378,8 @@
 </span><span id="line-210">            <span class="n">loss</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_c_cov</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reference_c_cov</span> <span class="o">-</span> <span class="n">cov_ext</span><span class="p">)</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span><span class="mf">4.0</span> <span class="o">*</span> <span class="n">d</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 </span><span id="line-211">            <span class="n">loss</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_c_mu</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reference_c_mean</span> <span class="o">-</span> <span class="n">mu_ext</span><span class="p">)</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </span><span id="line-212">
-</span><span id="line-213">        <span class="k">return</span> <span class="n">outputs</span><span class="p">,</span> <span class="n">loss</span>
+</span><span id="line-213">        <span class="k">return</span> <span class="n">outputs</span><span class="p">,</span> <span class="n">loss</span></div>
+
 </span><span id="line-214">
 </span><span id="line-215">    <span class="nd">@staticmethod</span>
 </span><span id="line-216">    <span class="k">def</span><span class="w"> </span><span class="nf">__covariance</span><span class="p">(</span><span class="n">features</span><span class="p">):</span>
@@ -381,6 +388,8 @@
 </span><span id="line-219">
 </span><span id="line-220">        <span class="k">return</span> <span class="n">compute_covariance</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </span><span id="line-221">
+<div class="viewcode-block" id="TTTPPEngine.compute_statistics">
+<a class="viewcode-back" href="../../../_autosummary/torch_ttt.engine.ttt_pp_engine.TTTPPEngine.html#torch_ttt.engine.ttt_pp_engine.TTTPPEngine.compute_statistics">[docs]</a>
 </span><span id="line-222">    <span class="k">def</span><span class="w"> </span><span class="nf">compute_statistics</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataloader</span><span class="p">:</span> <span class="n">DataLoader</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="line-223"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract and compute reference statistics for features and contrastive features.</span>
 </span><span id="line-224">
@@ -431,7 +440,8 @@
 </span><span id="line-269">        <span class="n">feat_mean</span> <span class="o">=</span> <span class="n">feat_all</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </span><span id="line-270">
 </span><span id="line-271">        <span class="bp">self</span><span class="o">.</span><span class="n">reference_c_cov</span> <span class="o">=</span> <span class="n">feat_cov</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
-</span><span id="line-272">        <span class="bp">self</span><span class="o">.</span><span class="n">reference_c_mean</span> <span class="o">=</span> <span class="n">feat_mean</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</span><span id="line-272">        <span class="bp">self</span><span class="o">.</span><span class="n">reference_c_mean</span> <span class="o">=</span> <span class="n">feat_mean</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span></div>
+
 </span><span id="line-273">
 </span><span id="line-274">    <span class="nd">@contextmanager</span>
 </span><span id="line-275">    <span class="k">def</span><span class="w"> </span><span class="nf">__capture_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

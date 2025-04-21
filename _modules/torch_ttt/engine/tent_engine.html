@@ -16,7 +16,7 @@
         gtag('config', 'G-NRNXK42JKJ');
     </script>
     
-  <title>torch_ttt.engine.tent_engine | torch&lt;span style=&#39;border-radius: 4px; color: white; text-justify: none; padding: 0px 2px 0px 2px; background: linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3)); -moz-linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3)); -webkit-linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3));&#39;&gt;-ttt&lt;/span&gt;</title>
+  <title>torch_ttt.engine.tent_engine | torch-ttt</title>
   <meta property="og:title" content="torch_ttt.engine.tent_engine | torch&lt;span style=&#39;border-radius: 4px; color: white; text-justify: none; padding: 0px 2px 0px 2px; background: linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3)); -moz-linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3)); -webkit-linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3));&#39;&gt;-ttt&lt;/span&gt;" />
   <meta name="twitter:title" content="torch_ttt.engine.tent_engine | torch&lt;span style=&#39;border-radius: 4px; color: white; text-justify: none; padding: 0px 2px 0px 2px; background: linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3)); -moz-linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3)); -webkit-linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3));&#39;&gt;-ttt&lt;/span&gt;" />
   <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=82fa1eaf" />
@@ -103,17 +103,21 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Tutorials</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../auto_examples/01_mnist_TTT.html">TTT for Corrupted MNIST</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../auto_examples/02_imagenet_tent.html">ImageNet Robustness with TENT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../auto_examples/03_mae_bert.html">Test-Time Training for Corrupted WILDS Dataset</a></li>
 </ul>
 </li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Documentation:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api.html">API Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/torch_ttt.engine.ttt_engine.TTTEngine.html">torch_ttt.engine.ttt_engine.TTTEngine</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/torch_ttt.engine.ttt_pp_engine.TTTPPEngine.html">torch_ttt.engine.ttt_pp_engine.TTTPPEngine</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/torch_ttt.engine.masked_ttt_engine.MaskedTTTEngine.html">torch_ttt.engine.masked_ttt_engine.MaskedTTTEngine</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/torch_ttt.engine.actmad_engine.ActMADEngine.html">torch_ttt.engine.actmad_engine.ActMADEngine</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/torch_ttt.engine.tent_engine.TentEngine.html">torch_ttt.engine.tent_engine.TentEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/torch_ttt.engine.ttt_engine.TTTEngine.html">TTTEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/torch_ttt.engine.ttt_pp_engine.TTTPPEngine.html">TTTPPEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/torch_ttt.engine.masked_ttt_engine.MaskedTTTEngine.html">MaskedTTTEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/torch_ttt.engine.actmad_engine.ActMADEngine.html">ActMADEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/torch_ttt.engine.tent_engine.TentEngine.html">TentEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/torch_ttt.engine.eata_engine.EataEngine.html">EataEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/torch_ttt.engine.memo_engine.MemoEngine.html">MemoEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/torch_ttt.engine.deyo_engine.DeYOEngine.html">DeYOEngine</a></li>
 </ul>
 </li>
 </ul>
@@ -202,6 +206,8 @@
 </span><span id="line-40">                <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">module</span><span class="o">.</span><span class="n">parameters</span><span class="p">(</span><span class="n">recurse</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 </span><span id="line-41">                    <span class="n">param</span><span class="o">.</span><span class="n">requires_grad</span> <span class="o">=</span> <span class="kc">False</span>
 </span><span id="line-42">
+<div class="viewcode-block" id="TentEngine.ttt_forward">
+<a class="viewcode-back" href="../../../_autosummary/torch_ttt.engine.tent_engine.TentEngine.html#torch_ttt.engine.tent_engine.TentEngine.ttt_forward">[docs]</a>
 </span><span id="line-43">    <span class="k">def</span><span class="w"> </span><span class="nf">ttt_forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
 </span><span id="line-44"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Forward pass and entropy loss computation.&quot;&quot;&quot;</span>
 </span><span id="line-45">        <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
@@ -209,6 +215,7 @@
 </span><span id="line-47">        <span class="n">log_probs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">log_softmax</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </span><span id="line-48">        <span class="n">entropy</span> <span class="o">=</span> <span class="o">-</span><span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">probs</span> <span class="o">*</span> <span class="n">log_probs</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </span><span id="line-49">        <span class="k">return</span> <span class="n">outputs</span><span class="p">,</span> <span class="n">entropy</span></div>
+</div>
 
 </span></code></pre></div>
     </div><div class="flex justify-between items-center pt-6 mt-12 border-t border-border gap-4">

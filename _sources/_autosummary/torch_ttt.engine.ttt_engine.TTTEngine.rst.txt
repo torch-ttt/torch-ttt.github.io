@@ -1,6 +1,9 @@
-﻿torch\_ttt.engine.ttt\_engine.TTTEngine
-=======================================
-
+﻿.. role:: hidden
+    :class: hidden-section
 .. currentmodule:: torch_ttt.engine.ttt_engine
 
+TTTEngine
+=========
+
 .. autoclass:: TTTEngine
+    :members:

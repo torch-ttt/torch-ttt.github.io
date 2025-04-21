@@ -1,6 +1,9 @@
-﻿torch\_ttt.engine.tent\_engine.TentEngine
-=========================================
-
+﻿.. role:: hidden
+    :class: hidden-section
 .. currentmodule:: torch_ttt.engine.tent_engine
 
+TentEngine
+==========
+
 .. autoclass:: TentEngine
+    :members:
