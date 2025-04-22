@@ -121,3 +121,11 @@ a.sphx-glr-backref-module-sphinx_gallery {
 .sig-param, .sig-return-type {
     color: #8be9fd;  /* Light blue for types */
 }
+
+
+/* Optional: Drop deafault "Download" button in Jupyter example */
+div.sphx-glr-footer {
+    height: 0px;
+    visibility: hidden;
+  }
+  

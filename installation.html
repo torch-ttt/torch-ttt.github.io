@@ -24,7 +24,7 @@
 <link href="_static/sg_gallery-binder.css?v=f4aeca0c" rel="stylesheet" type="text/css"/>
 <link href="_static/sg_gallery-dataframe.css?v=2082cf3c" rel="stylesheet" type="text/css"/>
 <link href="_static/sg_gallery-rendered-html.css?v=1277b6f3" rel="stylesheet" type="text/css"/>
-<link href="_static/css/custom.css?v=ed8c156e" rel="stylesheet" type="text/css"/>
+<link href="_static/css/custom.css?v=fab6f74d" rel="stylesheet" type="text/css"/>
 <link href="_static/css/docstring_custom.css?v=c7bea3a5" rel="stylesheet" type="text/css"/>
 <link href="_static/torch-ttt.svg" rel="icon"/>
 <link href="search.html" rel="search" title="Search"/>
@@ -118,17 +118,20 @@
 <div id="content" role="main">
 <section id="installation">
 <h1>Installation<a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#installation"><span>#</span></a></h1>
-<p><strong>torch-ttt</strong> requires Python 3.10 or greater. Install the desired PyTorch version in your environment.</p>
-<section id="latest-version">
-<h2>Latest version<a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#latest-version" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#latest-version'"><span>#</span></a></h2>
-<p>For the latest development version, you can run:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="go">pip install git+https://github.com/nikitadurasov/torch-ttt.git</span>
+<p><strong>torch-ttt</strong> requires <strong>Python 3.10 or newer</strong>. Make sure you have the appropriate version of <strong>PyTorch</strong> (CPU or GPU) installed in your environment before proceeding.</p>
+<section id="from-pypi">
+<h2>From PyPI<a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#from-pypi" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#from-pypi'"><span>#</span></a></h2>
+<p>To install the latest stable release from PyPI, ensure Python and PyTorch are set up, then run:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="go">pip install torch-ttt</span>
 </span></code></pre></div>
 </div>
 </section>
-<section id="from-pypi">
-<h2>From PyPI<a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#from-pypi" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#from-pypi'"><span>#</span></a></h2>
-<p>While we do not support PyPI yet, support is expected very soon!</p>
+<section id="development-version">
+<h2>Development Version<a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#development-version" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#development-version'"><span>#</span></a></h2>
+<p>To install the latest development version directly from GitHub, first ensure PyTorch is installed, then run:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="go">pip install git+https://github.com/nikitadurasov/torch-ttt.git</span>
+</span></code></pre></div>
+</div>
 </section>
 </section>
 </div><div class="flex justify-between items-center pt-6 mt-12 border-t border-border gap-4">
@@ -151,8 +154,8 @@
 </div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
 <div class="sticky top-16 -mt-10 max-h-[calc(100vh-5rem)] h-full overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
 <ul>
-<li><a :data-current="activeSection === '#latest-version'" class="reference internal" href="#latest-version">Latest version</a></li>
 <li><a :data-current="activeSection === '#from-pypi'" class="reference internal" href="#from-pypi">From PyPI</a></li>
+<li><a :data-current="activeSection === '#development-version'" class="reference internal" href="#development-version">Development Version</a></li>
 </ul>
 </div>
 </aside>
