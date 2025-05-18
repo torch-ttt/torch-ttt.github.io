@@ -15,9 +15,9 @@
         gtag('js', new Date());
         gtag('config', 'G-NRNXK42JKJ');
     </script>
-<title>Test-Time Training for Corrupted WILDS Dataset | torch-ttt</title>
-<meta content="Test-Time Training for Corrupted WILDS Dataset | torch&lt;span style='border-radius: 4px; color: white; text-justify: none; padding: 0px 2px 0px 2px; background: linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3)); -moz-linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3)); -webkit-linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3));'&gt;-ttt&lt;/span&gt;" property="og:title"/>
-<meta content="Test-Time Training for Corrupted WILDS Dataset | torch&lt;span style='border-radius: 4px; color: white; text-justify: none; padding: 0px 2px 0px 2px; background: linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3)); -moz-linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3)); -webkit-linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3));'&gt;-ttt&lt;/span&gt;" name="twitter:title"/>
+<title>Test-Time Training with BERT | torch-ttt</title>
+<meta content="Test-Time Training with BERT | torch&lt;span style='border-radius: 4px; color: white; text-justify: none; padding: 0px 2px 0px 2px; background: linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3)); -moz-linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3)); -webkit-linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3));'&gt;-ttt&lt;/span&gt;" property="og:title"/>
+<meta content="Test-Time Training with BERT | torch&lt;span style='border-radius: 4px; color: white; text-justify: none; padding: 0px 2px 0px 2px; background: linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3)); -moz-linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3)); -webkit-linear-gradient(45deg , rgba(140, 82, 255, 0.3), rgba(255, 145, 77, 0.3));'&gt;-ttt&lt;/span&gt;" name="twitter:title"/>
 <link href="../_static/pygments.css?v=82fa1eaf" rel="stylesheet" type="text/css"/>
 <link href="../_static/theme.css?v=c0d22bf5" rel="stylesheet" type="text/css"/>
 <link href="../_static/sg_gallery.css?v=d2d258e8" rel="stylesheet" type="text/css"/>
@@ -77,7 +77,7 @@
 <li class="toctree-l1 current" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="reference internal expandable" href="index.html">Tutorials<button @click.prevent.stop="expanded = !expanded" type="button"><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul class="current" x-show="expanded">
 <li class="toctree-l2"><a class="reference internal" href="01_mnist_TTT.html">TTT for Corrupted MNIST</a></li>
 <li class="toctree-l2"><a class="reference internal" href="02_imagenet_tent.html">ImageNet Robustness with TENT</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Test-Time Training for Corrupted WILDS Dataset</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Test-Time Training with BERT</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../papers.html">Papers</a></li>
@@ -101,7 +101,7 @@
 </svg>
 </a>
 <div class="mr-1">/</div><a class="hover:text-foreground overflow-hidden text-ellipsis whitespace-nowrap" href="index.html">Tutorials</a>
-<div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">Test-Time Training for Corrupted WILDS Dataset</span>
+<div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">Test-Time Training with BERT</span>
 </nav>
 <div id="content" role="main">
 <div class="sphx-glr-download-link-note admonition note">
@@ -109,25 +109,26 @@
 <p><a class="reference internal" href="#sphx-glr-download-auto-examples-03-mae-bert-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code.</p>
 </div>
-<section class="sphx-glr-example-title" id="test-time-training-for-corrupted-wilds-dataset">
-<span id="sphx-glr-auto-examples-03-mae-bert-py"></span><h1>Test-Time Training for Corrupted WILDS Dataset<a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#test-time-training-for-corrupted-wilds-dataset"><span>#</span></a></h1>
-<p>Explore how Test-Time Training (TTT) can improve model performance under data corruption,
-using the BERT model fine-tuned with a MaskedTTT engine on the Amazon Reviews dataset.</p>
+<section class="sphx-glr-example-title" id="test-time-training-with-bert">
+<span id="sphx-glr-auto-examples-03-mae-bert-py"></span><h1>Test-Time Training with BERT<a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#test-time-training-with-bert"><span>#</span></a></h1>
+<p>Discover how Masked Test-Time Training can improve model performance under data corruption.</p>
+<p>In this tutorial, we use a pretrained BERT model fine-tuned on the Amazon Reviews dataset. During inference, we show how simple text corruptions can significantly degrade the model’s performance and how the <a class="reference external" href="https://torch-ttt.github.io/_autosummary/torch_ttt.engine.masked_ttt_engine.MaskedTTTEngine.html">MaskedTTT</a> engine can natively enhance performance for BERT-based models.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="nb">print</span><span class="p">(</span><span class="s2">"Uncomment the line below to install torch-ttt if you're running this in Colab"</span><span class="p">)</span>
-</span><span id="line-2"><span class="c1"># !pip install git+https://github.com/nikitadurasov/torch-ttt.git</span>
+</span><span id="line-2"><span class="c1"># !pip install torch-ttt</span>
 </span></code></pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">Uncomment the line below to install torch-ttt if you're running this in Colab
 </span></code></pre></div>
 </div>
-<section id="helper-functions">
-<h2>Helper Functions<a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#helper-functions" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#helper-functions'"><span>#</span></a></h2>
+<section id="model-fine-tuning">
+<h2>Model Fine-Tuning<a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#model-fine-tuning" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#model-fine-tuning'"><span>#</span></a></h2>
+<p>In this first part, we will use a widely adopted pretrained BERT model and fine-tune it on a Amazon Reviews classification task. Below, we walk through data loading and preparation, loading the pretrained BERT model, and its fine-tuning.</p>
 <section id="data-preparation">
 <h3>Data Preparation<a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#data-preparation" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#data-preparation'"><span>#</span></a></h3>
 <p>We will work with the Amazon Reviews dataset, which contains customer reviews for a wide range of products.
 To simulate distribution shift, we will use both a clean version of the dataset and a corrupted version that includes noise in the form of typos and text perturbations.
 For this tutorial, we’ll focus on a single corruption type: character-level typos.</p>
-<p>Let’s start by downloading both the clean and corrupted versions of the Amazon Reviews dataset.</p>
+<p>Let’s start by downloading the training and validation splits of our Amazon Reviews dataset.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 </span><span id="line-2">
 </span><span id="line-3"><span class="c1"># Download Amazon Review "electronics" category training set</span>
@@ -146,12 +147,14 @@ For this tutorial, we’ll focus on a single corruption type: character-level ty
 </span><span id="line-4"><span class="kn">from</span><span class="w"> </span><span class="nn">transformers.modeling_outputs</span><span class="w"> </span><span class="kn">import</span> <span class="n">SequenceClassifierOutput</span>
 </span><span id="line-5"><span class="kn">from</span><span class="w"> </span><span class="nn">tqdm</span><span class="w"> </span><span class="kn">import</span> <span class="n">tqdm</span>
 </span><span id="line-6"><span class="kn">from</span><span class="w"> </span><span class="nn">copy</span><span class="w"> </span><span class="kn">import</span> <span class="n">deepcopy</span>
+</span><span id="line-7">
+</span><span id="line-8"><span class="c1"># sphinx_gallery_thumbnail_path = '_static/images/examples/bert_horizonal.png'</span>
 </span></code></pre></div>
 </div>
 </section>
-</section>
-<section id="loading-wilds-dataset">
-<h2>Loading WILDS dataset<a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#loading-wilds-dataset" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#loading-wilds-dataset'"><span>#</span></a></h2>
+<section id="loading-amazon-reviews">
+<h3>Loading Amazon Reviews<a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#loading-amazon-reviews" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#loading-amazon-reviews'"><span>#</span></a></h3>
+<p>Each review consists of the review text and a score (from 0 to 4), ranging from most negative to most positive. As we will see below, we treat this as a text classification task, where each review is classified into one of these five classes.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 </span><span id="line-2"><span class="kn">from</span><span class="w"> </span><span class="nn">torch.utils.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataLoader</span>
 </span><span id="line-3"><span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">BertTokenizer</span><span class="p">,</span> <span class="n">BertForSequenceClassification</span>
@@ -180,11 +183,48 @@ For this tutorial, we’ll focus on a single corruption type: character-level ty
 </span><span id="line-26">
 </span><span id="line-27"><span class="n">train_data</span> <span class="o">=</span> <span class="n">AmazonReviewDataset</span><span class="p">(</span><span class="s2">"train_amazon_review_electronics.pt"</span><span class="p">)</span>
 </span><span id="line-28"><span class="n">val_data</span> <span class="o">=</span> <span class="n">AmazonReviewDataset</span><span class="p">(</span><span class="s2">"test_amazon_review_electronics.pt"</span><span class="p">)</span>
+</span><span id="line-29">
+</span><span id="line-30"><span class="c1"># Review Examples</span>
+</span><span id="line-31"><span class="n">review_sample</span> <span class="o">=</span> <span class="n">train_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span><span id="line-32"><span class="nb">print</span><span class="p">(</span><span class="s2">"*"</span><span class="o">*</span><span class="mi">20</span> <span class="o">+</span> <span class="s2">" Review #1 "</span> <span class="o">+</span> <span class="s2">"*"</span><span class="o">*</span><span class="mi">20</span><span class="p">)</span>
+</span><span id="line-33"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Review text: </span><span class="si">{</span><span class="n">review_sample</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="line-34"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Review score: </span><span class="si">{</span><span class="n">review_sample</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> (from 0 to 4)</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="line-35">
+</span><span id="line-36"><span class="n">review_sample</span> <span class="o">=</span> <span class="n">train_data</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
+</span><span id="line-37"><span class="nb">print</span><span class="p">(</span><span class="s2">"*"</span><span class="o">*</span><span class="mi">20</span> <span class="o">+</span> <span class="s2">" Review #2 "</span> <span class="o">+</span> <span class="s2">"*"</span><span class="o">*</span><span class="mi">20</span><span class="p">)</span>
+</span><span id="line-38"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Review text: </span><span class="si">{</span><span class="n">review_sample</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="line-39"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Review score: </span><span class="si">{</span><span class="n">review_sample</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="line-40">
+</span><span id="line-41"><span class="n">review_sample</span> <span class="o">=</span> <span class="n">train_data</span><span class="p">[</span><span class="mi">100</span><span class="p">]</span>
+</span><span id="line-42"><span class="nb">print</span><span class="p">(</span><span class="s2">"*"</span><span class="o">*</span><span class="mi">20</span> <span class="o">+</span> <span class="s2">" Review #3 "</span> <span class="o">+</span> <span class="s2">"*"</span><span class="o">*</span><span class="mi">20</span><span class="p">)</span>
+</span><span id="line-43"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Review text: </span><span class="si">{</span><span class="n">review_sample</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="line-44"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Review score: </span><span class="si">{</span><span class="n">review_sample</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+</span></code></pre></div>
+</div>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">******************** Review #1 ********************
+</span><span id="line-2">Review text: The VideoSecu line of articulating wall mounts has become our standard of choice for high quality articulating wall mounts within our home.  The value is such that the convenience of having an articulating wall mount for connecting or reconnecting cables is well worth the few bucks required to mount our HDTVs conveniently to the wall.  Highly recommend this great quality product. This wall mount will secure any of the HDTVs using the VESA 100 or VESA 200 mount pattern. We like to use a mount on the larger end than actually needed so if we later upgrade the HDTV with a larger size there's a much better chance we won't need to replace the articulating mount.
+</span><span id="line-3">Review score: 4 (from 0 to 4)
+</span><span id="line-4">
+</span><span id="line-5">******************** Review #2 ********************
+</span><span id="line-6">Review text: ...it's kind of a pain in the butt to lock and unlock on first tries, takes me at least 3 tries or a good 10-30 seconds of fiddling to do it each time.  Wish they'd made it easier to use...was hoping for some sort of reassuring "click" sound to let you know when it's in and when it's out, but no such luck.  Perhaps the more expensive Kensington ClickSafe models that have a Flat/Disc mechanism instead of this Microsaver's Round/Barrel mechanism would work differently.
+</span><span id="line-7">
+</span><span id="line-8">Even when locked, it feels slightly iffy, as if a really strong determined yank could easily rip it off my laptop (a Lenovo T520, no cheap flimsy lightweight).
+</span><span id="line-9">
+</span><span id="line-10">Oh well, I guess the main value of this device = visual deterrence, i.e. making oneself a harder target in hopes that a thief would pass your laptop up for an easier, unprotected one.  In that respect, it does work I suppose...I bought it just to give me some extra peace of mind when working in a cafe or library and needing to leave my laptop unattended to go to the restroom for a few minutes.
+</span><span id="line-11">Review score: 2
+</span><span id="line-12">
+</span><span id="line-13">******************** Review #3 ********************
+</span><span id="line-14">Review text: Compact and solidly built. Prongs fold down, a plus for travel. 2 USB outlets (low 2.1 amps/half if using both for low charge) but fine enough for overnight charging. Lifetime guarantee and responsive support contact.
+</span><span id="line-15">Review score: 4
 </span></code></pre></div>
 </div>
 </section>
 <section id="loading-pretrained-bert">
-<h2>Loading Pretrained BERT<a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#loading-pretrained-bert" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#loading-pretrained-bert'"><span>#</span></a></h2>
+<h3>Loading Pretrained BERT<a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#loading-pretrained-bert" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#loading-pretrained-bert'"><span>#</span></a></h3>
+<p>In this subsection, we load a pretrained BERT model with a Masked Language Modeling (MLM) head.
+We demonstrate how BERT predicts missing words by masking a token in a sentence and retrieving
+the top predictions using the MLM head. This showcases the model’s ability to understand context
+and semantics in text, which we will later leverage in our Test-Time Training approach.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 </span><span id="line-2"><span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">BertTokenizer</span><span class="p">,</span> <span class="n">BertModel</span><span class="p">,</span> <span class="n">BertConfig</span>
 </span><span id="line-3"><span class="kn">from</span><span class="w"> </span><span class="nn">transformers.models.bert.modeling_bert</span><span class="w"> </span><span class="kn">import</span> <span class="n">BertLMPredictionHead</span><span class="p">,</span> <span class="n">BertForMaskedLM</span>
@@ -199,52 +239,61 @@ For this tutorial, we’ll focus on a single corruption type: character-level ty
 </span><span id="line-12"><span class="c1"># Extract encoder and MLM head from it</span>
 </span><span id="line-13"><span class="n">bert</span> <span class="o">=</span> <span class="n">mlm_model</span><span class="o">.</span><span class="n">bert</span>
 </span><span id="line-14"><span class="n">mlm_head</span> <span class="o">=</span> <span class="n">mlm_model</span><span class="o">.</span><span class="n">cls</span>
-</span><span id="line-15">
-</span><span id="line-16"><span class="c1"># Input sentence with a masked token</span>
-</span><span id="line-17"><span class="n">text</span> <span class="o">=</span> <span class="s2">"The Milky Way is a spiral [MASK]."</span>
-</span><span id="line-18"><span class="n">inputs</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">"pt"</span><span class="p">)</span>
-</span><span id="line-19"><span class="n">input_ids</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="s2">"input_ids"</span><span class="p">]</span>
-</span><span id="line-20">
-</span><span id="line-21"><span class="c1"># Get index of [MASK] token</span>
-</span><span id="line-22"><span class="n">mask_token_index</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">input_ids</span> <span class="o">==</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">mask_token_id</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
-</span><span id="line-23">
-</span><span id="line-24"><span class="c1"># Forward pass through BERT to get hidden states</span>
-</span><span id="line-25"><span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
-</span><span id="line-26">    <span class="n">outputs</span> <span class="o">=</span> <span class="n">bert</span><span class="p">(</span><span class="o">**</span><span class="n">inputs</span><span class="p">,</span> <span class="n">return_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="line-27">    <span class="n">hidden_states</span> <span class="o">=</span> <span class="n">outputs</span><span class="o">.</span><span class="n">last_hidden_state</span>  <span class="c1"># (batch_size, seq_len, hidden_dim)</span>
-</span><span id="line-28">
-</span><span id="line-29"><span class="c1"># Apply MLM head to get logits over vocabulary</span>
-</span><span id="line-30"><span class="n">logits</span> <span class="o">=</span> <span class="n">mlm_head</span><span class="p">(</span><span class="n">hidden_states</span><span class="p">)</span>  <span class="c1"># (batch_size, seq_len, vocab_size)</span>
-</span><span id="line-31">
-</span><span id="line-32"><span class="c1"># Get logits at [MASK] position</span>
-</span><span id="line-33"><span class="n">mask_logits</span> <span class="o">=</span> <span class="n">logits</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">mask_token_index</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># shape: (1, vocab_size)</span>
-</span><span id="line-34">
-</span><span id="line-35"><span class="c1"># Get top-3 predicted tokens</span>
-</span><span id="line-36"><span class="n">top_3_tokens</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">topk</span><span class="p">(</span><span class="n">mask_logits</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">indices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-</span><span id="line-37">
-</span><span id="line-38"><span class="c1"># Print predictions</span>
-</span><span id="line-39"><span class="nb">print</span><span class="p">(</span><span class="s2">"Original:"</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
-</span><span id="line-40"><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">token_id</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">top_3_tokens</span><span class="p">):</span>
-</span><span id="line-41">    <span class="n">predicted_token</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">([</span><span class="n">token_id</span><span class="p">])</span>
-</span><span id="line-42">    <span class="n">filled_text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">mask_token</span><span class="p">,</span> <span class="n">predicted_token</span><span class="p">)</span>
-</span><span id="line-43">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">filled_text</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </span></code></pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">Xet Storage is enabled for this repo, but the 'hf_xet' package is not installed. Falling back to regular HTTP download. For better performance, install the package with: `pip install huggingface_hub[hf_xet]` or `pip install hf_xet`
 </span><span id="line-2">Some weights of the model checkpoint at bert-base-uncased were not used when initializing BertForMaskedLM: ['bert.pooler.dense.bias', 'bert.pooler.dense.weight', 'cls.seq_relationship.bias', 'cls.seq_relationship.weight']
 </span><span id="line-3">- This IS expected if you are initializing BertForMaskedLM from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
 </span><span id="line-4">- This IS NOT expected if you are initializing BertForMaskedLM from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
-</span><span id="line-5">Original: The Milky Way is a spiral [MASK].
-</span><span id="line-6">1. The Milky Way is a spiral galaxy.
-</span><span id="line-7">2. The Milky Way is a spiral galaxies.
-</span><span id="line-8">3. The Milky Way is a spiral system.
-</span><span id="line-9">4. The Milky Way is a spiral nebula.
-</span><span id="line-10">5. The Milky Way is a spiral constellation.
+</span></code></pre></div>
+</div>
+<p>In the example below, we mask one of the words in a sentence and use the MLM head to predict
+the missing token. The model returns the most likely candidates to fill in the blank, illustrating
+its contextual understanding of language.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="n">text</span> <span class="o">=</span> <span class="s2">"The Milky Way is a spiral [MASK]."</span>
+</span><span id="line-2"><span class="n">inputs</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">"pt"</span><span class="p">)</span>
+</span><span id="line-3"><span class="n">input_ids</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="s2">"input_ids"</span><span class="p">]</span>
+</span><span id="line-4">
+</span><span id="line-5"><span class="c1"># Get index of [MASK] token</span>
+</span><span id="line-6"><span class="n">mask_token_index</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">input_ids</span> <span class="o">==</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">mask_token_id</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+</span><span id="line-7">
+</span><span id="line-8"><span class="c1"># Forward pass through BERT to get hidden states</span>
+</span><span id="line-9"><span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+</span><span id="line-10">    <span class="n">outputs</span> <span class="o">=</span> <span class="n">bert</span><span class="p">(</span><span class="o">**</span><span class="n">inputs</span><span class="p">,</span> <span class="n">return_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="line-11">    <span class="n">hidden_states</span> <span class="o">=</span> <span class="n">outputs</span><span class="o">.</span><span class="n">last_hidden_state</span>  <span class="c1"># (batch_size, seq_len, hidden_dim)</span>
+</span><span id="line-12">
+</span><span id="line-13"><span class="c1"># Apply MLM head to get logits over vocabulary</span>
+</span><span id="line-14"><span class="n">logits</span> <span class="o">=</span> <span class="n">mlm_head</span><span class="p">(</span><span class="n">hidden_states</span><span class="p">)</span>  <span class="c1"># (batch_size, seq_len, vocab_size)</span>
+</span><span id="line-15">
+</span><span id="line-16"><span class="c1"># Get logits at [MASK] position</span>
+</span><span id="line-17"><span class="n">mask_logits</span> <span class="o">=</span> <span class="n">logits</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">mask_token_index</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># shape: (1, vocab_size)</span>
+</span><span id="line-18">
+</span><span id="line-19"><span class="c1"># Get top-3 predicted tokens</span>
+</span><span id="line-20"><span class="n">top_3_tokens</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">topk</span><span class="p">(</span><span class="n">mask_logits</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">indices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+</span><span id="line-21">
+</span><span id="line-22"><span class="c1"># Print predictions</span>
+</span><span id="line-23"><span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n\n</span><span class="s2">"</span> <span class="o">+</span> <span class="s2">"*"</span><span class="o">*</span><span class="mi">20</span> <span class="o">+</span> <span class="s2">" BERT-based Token Reconstruction "</span> <span class="o">+</span> <span class="s2">"*"</span><span class="o">*</span><span class="mi">20</span><span class="p">)</span>
+</span><span id="line-24"><span class="nb">print</span><span class="p">(</span><span class="s2">"Original:"</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+</span><span id="line-25"><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">token_id</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">top_3_tokens</span><span class="p">):</span>
+</span><span id="line-26">    <span class="n">predicted_token</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">([</span><span class="n">token_id</span><span class="p">])</span>
+</span><span id="line-27">    <span class="n">filled_text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">mask_token</span><span class="p">,</span> <span class="n">predicted_token</span><span class="p">)</span>
+</span><span id="line-28">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">filled_text</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span></code></pre></div>
+</div>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">******************** BERT-based Token Reconstruction ********************
+</span><span id="line-2">Original: The Milky Way is a spiral [MASK].
+</span><span id="line-3">1. The Milky Way is a spiral galaxy.
+</span><span id="line-4">2. The Milky Way is a spiral galaxies.
+</span><span id="line-5">3. The Milky Way is a spiral system.
+</span><span id="line-6">4. The Milky Way is a spiral nebula.
+</span><span id="line-7">5. The Milky Way is a spiral constellation.
 </span></code></pre></div>
 </div>
 </section>
-<section id="finetuning-bert">
-<h2>Finetuning BERT<a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#finetuning-bert" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#finetuning-bert'"><span>#</span></a></h2>
+<section id="fine-tuning-bert">
+<h3>Fine-tuning BERT<a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#fine-tuning-bert" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#fine-tuning-bert'"><span>#</span></a></h3>
+<p>We now fine-tune the pretrained BERT encoder for a multi-class sentiment classification task using the Amazon Reviews dataset. To address class imbalance, we compute class frequencies and apply a <em>WeightedRandomSampler</em> to ensure balanced training.</p>
+<p>We define a custom classification head on top of BERT, consisting of several fully connected layers, and use the [CLS] token representation for prediction. The model is trained using cross-entropy loss with class weights, and a learning rate scheduler is set up for stable optimization.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 </span><span id="line-2"><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
 </span><span id="line-3"><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -259,26 +308,34 @@ For this tutorial, we’ll focus on a single corruption type: character-level ty
 </span></code></pre></div>
 </div>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
-</span><span id="line-2"><span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">train_data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">train_data</span><span class="p">))]</span>
-</span><span id="line-3"><span class="n">sorted_freq</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">Counter</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">])</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</span><span id="line-4"><span class="nb">print</span><span class="p">(</span><span class="n">sorted_freq</span><span class="p">)</span>
+</span><span id="line-2">
+</span><span id="line-3"><span class="c1"># Class frequencies (heavily imbalanced)</span>
+</span><span id="line-4"><span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">train_data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">train_data</span><span class="p">))]</span>
+</span><span id="line-5"><span class="n">sorted_freq</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">Counter</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">])</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span><span id="line-6"><span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">sorted_freq</span><span class="p">:</span>
+</span><span id="line-7">  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Class </span><span class="si">{</span><span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">f</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> samples"</span><span class="p">)</span>
 </span></code></pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">[(0, 76), (1, 69), (2, 215), (3, 632), (4, 1744)]
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">Class 0: 76 samples
+</span><span id="line-2">Class 1: 69 samples
+</span><span id="line-3">Class 2: 215 samples
+</span><span id="line-4">Class 3: 632 samples
+</span><span id="line-5">Class 4: 1744 samples
 </span></code></pre></div>
 </div>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="kn">from</span><span class="w"> </span><span class="nn">torch.utils.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">WeightedRandomSampler</span>
 </span><span id="line-2">
-</span><span id="line-3"><span class="c1"># Count samples per class</span>
+</span><span id="line-3"><span class="c1"># Compute weights per class</span>
 </span><span id="line-4"><span class="n">class_counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
 </span><span id="line-5"><span class="n">class_weights</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">class_counts</span>
 </span><span id="line-6"><span class="n">sample_weights</span> <span class="o">=</span> <span class="n">class_weights</span><span class="p">[</span><span class="n">labels</span><span class="p">]</span>
 </span><span id="line-7">
-</span><span id="line-8"><span class="n">sampler</span> <span class="o">=</span> <span class="n">WeightedRandomSampler</span><span class="p">(</span>
-</span><span id="line-9">    <span class="n">weights</span><span class="o">=</span><span class="n">sample_weights</span><span class="p">,</span>
-</span><span id="line-10">    <span class="n">num_samples</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">sample_weights</span><span class="p">),</span>
-</span><span id="line-11">    <span class="n">replacement</span><span class="o">=</span><span class="kc">True</span>
-</span><span id="line-12"><span class="p">)</span>
+</span><span id="line-8"><span class="c1"># Create weighted sampler for Dataloader</span>
+</span><span id="line-9"><span class="n">sampler</span> <span class="o">=</span> <span class="n">WeightedRandomSampler</span><span class="p">(</span>
+</span><span id="line-10">    <span class="n">weights</span><span class="o">=</span><span class="n">sample_weights</span><span class="p">,</span>
+</span><span id="line-11">    <span class="n">num_samples</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">sample_weights</span><span class="p">),</span>
+</span><span id="line-12">    <span class="n">replacement</span><span class="o">=</span><span class="kc">True</span>
+</span><span id="line-13"><span class="p">)</span>
 </span></code></pre></div>
 </div>
 <p>Class sample counts</p>
@@ -334,7 +391,7 @@ For this tutorial, we’ll focus on a single corruption type: character-level ty
 </span><span id="line-50"><span class="n">classifier</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
 </span></code></pre></div>
 </div>
-<p>Use HuggingFace tokenizer</p>
+<p><strong>Training parameters</strong>: We use the standard BERT tokenizer from HuggingFace. All training parameters—such as the number of epochs, batch size, and learning rate—are listed below.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="n">tokenizer</span> <span class="o">=</span> <span class="n">BertTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">"bert-base-uncased"</span><span class="p">)</span>
 </span><span id="line-2">
 </span><span id="line-3"><span class="k">def</span><span class="w"> </span><span class="nf">tokenize_batch</span><span class="p">(</span><span class="n">batch</span><span class="p">):</span>
@@ -360,7 +417,7 @@ For this tutorial, we’ll focus on a single corruption type: character-level ty
 </span><span id="line-23">                             <span class="n">num_training_steps</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">train_loader</span><span class="p">)</span><span class="o">*</span><span class="n">epochs_num</span><span class="p">)</span>
 </span></code></pre></div>
 </div>
-<p>Training loop</p>
+<p><strong>Training loop</strong>: Here we fine-tune the BERT classifier using weighted cross-entropy and the AdamW optimizer with a learning rate scheduler. After each epoch, we evaluate accuracy on the validation set to track performance.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs_num</span><span class="p">):</span>
 </span><span id="line-2">    <span class="n">classifier</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
 </span><span id="line-3">    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">batch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">train_loader</span><span class="p">):</span>
@@ -410,11 +467,11 @@ For this tutorial, we’ll focus on a single corruption type: character-level ty
 </span><span id="line-20">Validation Accuracy after epoch 20: 0.6081
 </span></code></pre></div>
 </div>
-<p>Validation</p>
+<p><strong>Validation Evaluation</strong>: After fine-tuning, our BERT model achieves approximately 60% accuracy on the Amazon Reviews test set.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="n">classifier</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
 </span><span id="line-2"><span class="n">all_preds</span><span class="p">,</span> <span class="n">all_labels</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
 </span><span id="line-3"><span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
-</span><span id="line-4">    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">batch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tqdm</span><span class="p">(</span><span class="n">val_loader</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">val_loader</span><span class="p">))):</span>
+</span><span id="line-4">    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">batch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">val_loader</span><span class="p">):</span>
 </span><span id="line-5">        <span class="n">batch</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">batch</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
 </span><span id="line-6">        <span class="n">outputs</span> <span class="o">=</span> <span class="n">classifier</span><span class="p">(</span><span class="o">**</span><span class="n">batch</span><span class="p">)</span>
 </span><span id="line-7">        <span class="n">preds</span> <span class="o">=</span> <span class="n">outputs</span><span class="o">.</span><span class="n">logits</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
@@ -423,157 +480,129 @@ For this tutorial, we’ll focus on a single corruption type: character-level ty
 </span><span id="line-10">        <span class="n">all_labels</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
 </span><span id="line-11">
 </span><span id="line-12"><span class="n">acc</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">all_labels</span><span class="p">,</span> <span class="n">all_preds</span><span class="p">)</span>
-</span><span id="line-13"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Validation Accuracy after epoch: </span><span class="si">{</span><span class="n">acc</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="line-13"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Validation Accuracy (FINAL): </span><span class="si">{</span><span class="n">acc</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </span></code></pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">  0%|          | 0/52 [00:00&lt;?, ?it/s]
-</span><span id="line-2">  2%|▏         | 1/52 [00:01&lt;01:12,  1.42s/it]
-</span><span id="line-3">  4%|▍         | 2/52 [00:01&lt;00:32,  1.54it/s]
-</span><span id="line-4">  8%|▊         | 4/52 [00:01&lt;00:13,  3.51it/s]
-</span><span id="line-5"> 12%|█▏        | 6/52 [00:01&lt;00:08,  5.64it/s]
-</span><span id="line-6"> 15%|█▌        | 8/52 [00:01&lt;00:05,  7.75it/s]
-</span><span id="line-7"> 19%|█▉        | 10/52 [00:02&lt;00:04,  9.70it/s]
-</span><span id="line-8"> 23%|██▎       | 12/52 [00:02&lt;00:03, 11.40it/s]
-</span><span id="line-9"> 27%|██▋       | 14/52 [00:02&lt;00:02, 12.78it/s]
-</span><span id="line-10"> 31%|███       | 16/52 [00:02&lt;00:02, 13.84it/s]
-</span><span id="line-11"> 35%|███▍      | 18/52 [00:02&lt;00:02, 14.76it/s]
-</span><span id="line-12"> 38%|███▊      | 20/52 [00:02&lt;00:02, 14.92it/s]
-</span><span id="line-13"> 42%|████▏     | 22/52 [00:02&lt;00:01, 15.57it/s]
-</span><span id="line-14"> 46%|████▌     | 24/52 [00:02&lt;00:01, 16.11it/s]
-</span><span id="line-15"> 50%|█████     | 26/52 [00:02&lt;00:01, 16.50it/s]
-</span><span id="line-16"> 54%|█████▍    | 28/52 [00:03&lt;00:01, 16.79it/s]
-</span><span id="line-17"> 58%|█████▊    | 30/52 [00:03&lt;00:01, 16.88it/s]
-</span><span id="line-18"> 62%|██████▏   | 32/52 [00:03&lt;00:01, 16.98it/s]
-</span><span id="line-19"> 65%|██████▌   | 34/52 [00:03&lt;00:01, 17.05it/s]
-</span><span id="line-20"> 69%|██████▉   | 36/52 [00:03&lt;00:00, 17.12it/s]
-</span><span id="line-21"> 73%|███████▎  | 38/52 [00:03&lt;00:00, 17.20it/s]
-</span><span id="line-22"> 77%|███████▋  | 40/52 [00:03&lt;00:00, 17.19it/s]
-</span><span id="line-23"> 81%|████████  | 42/52 [00:03&lt;00:00, 17.22it/s]
-</span><span id="line-24"> 85%|████████▍ | 44/52 [00:03&lt;00:00, 17.29it/s]
-</span><span id="line-25"> 88%|████████▊ | 46/52 [00:04&lt;00:00, 17.27it/s]
-</span><span id="line-26"> 92%|█████████▏| 48/52 [00:04&lt;00:00, 17.29it/s]
-</span><span id="line-27"> 96%|█████████▌| 50/52 [00:04&lt;00:00, 17.33it/s]
-</span><span id="line-28">100%|██████████| 52/52 [00:04&lt;00:00, 11.49it/s]
-</span><span id="line-29">Validation Accuracy after epoch: 0.6081
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">Validation Accuracy (FINAL): 0.6081
 </span></code></pre></div>
 </div>
 </section>
-<section id="evalating-bert-on-corrupted-data">
-<h2>Evalating BERT on Corrupted Data<a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#evalating-bert-on-corrupted-data" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#evalating-bert-on-corrupted-data'"><span>#</span></a></h2>
+</section>
+<section id="original-bert-evaluation">
+<h2>Original BERT Evaluation<a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#original-bert-evaluation" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#original-bert-evaluation'"><span>#</span></a></h2>
+<p>In this section, we simulate real-world noise by applying text corruptions—such as character swaps, deletions, and word shuffling—to the validation set. We define a <em>CorruptedDataset</em> wrapper that dynamically applies these perturbations during data loading.</p>
+<p>We then evaluate the fine-tuned BERT classifier from the previous sections on this corrupted data to measure its robustness. As expected, even minor textual noise can lead to a noticeable drop in performance, highlighting the need for techniques like Test-Time Training.</p>
+<section id="evaluating-bert-on-corrupted-data">
+<h3>Evaluating BERT on Corrupted Data<a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#evaluating-bert-on-corrupted-data" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#evaluating-bert-on-corrupted-data'"><span>#</span></a></h3>
+<p>We start by defining simple text corruption functions that simulate real-world noise, such as typos and word scrambling.
+These include character-level operations (e.g., dropping, swapping, or repeating characters) and word-level perturbations
+(e.g., deleting or shuffling words). We combine these operations to create corrupted versions of clean input text,
+which will later be used to assess how well the fine-tuned BERT model performs on noisy inputs.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
 </span><span id="line-2">
 </span><span id="line-3"><span class="k">def</span><span class="w"> </span><span class="nf">corrupt_characters</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">prob</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
-</span><span id="line-4">    <span class="n">corrupted</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="line-5">    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">():</span>
-</span><span id="line-6">        <span class="n">chars</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
-</span><span id="line-7">        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">chars</span><span class="p">)):</span>
-</span><span id="line-8">            <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">prob</span><span class="p">:</span>
-</span><span id="line-9">                <span class="n">op</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">'swap'</span><span class="p">,</span> <span class="s1">'drop'</span><span class="p">,</span> <span class="s1">'repeat'</span><span class="p">])</span>
-</span><span id="line-10">                <span class="k">if</span> <span class="n">op</span> <span class="o">==</span> <span class="s1">'swap'</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">chars</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
-</span><span id="line-11">                    <span class="n">chars</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">chars</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">chars</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">chars</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-</span><span id="line-12">                <span class="k">elif</span> <span class="n">op</span> <span class="o">==</span> <span class="s1">'drop'</span><span class="p">:</span>
-</span><span id="line-13">                    <span class="n">chars</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="s1">''</span>
-</span><span id="line-14">                <span class="k">elif</span> <span class="n">op</span> <span class="o">==</span> <span class="s1">'repeat'</span><span class="p">:</span>
-</span><span id="line-15">                    <span class="n">chars</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">chars</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>
-</span><span id="line-16">        <span class="n">corrupted</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">''</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">chars</span><span class="p">))</span>
-</span><span id="line-17">    <span class="k">return</span> <span class="s1">' '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">corrupted</span><span class="p">)</span>
-</span><span id="line-18">
-</span><span id="line-19"><span class="k">def</span><span class="w"> </span><span class="nf">corrupt_words</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">prob</span><span class="o">=</span><span class="mf">0.2</span><span class="p">):</span>
-</span><span id="line-20">    <span class="n">words</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
-</span><span id="line-21">    <span class="n">new_words</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="line-22">
-</span><span id="line-23">    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
-</span><span id="line-24">        <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">prob</span><span class="p">:</span>
-</span><span id="line-25">            <span class="n">op</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">'delete'</span><span class="p">,</span> <span class="s1">'shuffle'</span><span class="p">])</span>
-</span><span id="line-26">            <span class="k">if</span> <span class="n">op</span> <span class="o">==</span> <span class="s1">'delete'</span><span class="p">:</span>
-</span><span id="line-27">                <span class="k">continue</span>
-</span><span id="line-28">            <span class="k">elif</span> <span class="n">op</span> <span class="o">==</span> <span class="s1">'shuffle'</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">:</span>
-</span><span id="line-29">                <span class="n">middle</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">word</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-</span><span id="line-30">                <span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">middle</span><span class="p">)</span>
-</span><span id="line-31">                <span class="n">word</span> <span class="o">=</span> <span class="n">word</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">''</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">middle</span><span class="p">)</span> <span class="o">+</span> <span class="n">word</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-</span><span id="line-32">        <span class="n">new_words</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
-</span><span id="line-33">    <span class="k">return</span> <span class="s1">' '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">new_words</span><span class="p">)</span>
-</span><span id="line-34">
-</span><span id="line-35"><span class="k">def</span><span class="w"> </span><span class="nf">corrupt_text</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">char_prob</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">word_prob</span><span class="o">=</span><span class="mf">0.2</span><span class="p">):</span>
-</span><span id="line-36">    <span class="k">return</span> <span class="n">corrupt_characters</span><span class="p">(</span><span class="n">corrupt_words</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">word_prob</span><span class="p">),</span> <span class="n">char_prob</span><span class="p">)</span>
-</span><span id="line-37">
-</span><span id="line-38"><span class="k">class</span><span class="w"> </span><span class="nc">CorruptedDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
-</span><span id="line-39">
-</span><span id="line-40">    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">char_prob</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">word_prob</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
-</span><span id="line-41">        <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span>
-</span><span id="line-42">        <span class="bp">self</span><span class="o">.</span><span class="n">char_prob</span> <span class="o">=</span> <span class="n">char_prob</span>
-</span><span id="line-43">        <span class="bp">self</span><span class="o">.</span><span class="n">word_prob</span> <span class="o">=</span> <span class="n">word_prob</span>
-</span><span id="line-44">
-</span><span id="line-45">    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
-</span><span id="line-46">        <span class="n">sample</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
-</span><span id="line-47">        <span class="n">text</span> <span class="o">=</span> <span class="n">sample</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</span><span id="line-48">        <span class="n">corrupted_text</span> <span class="o">=</span> <span class="n">corrupt_text</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">char_prob</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">word_prob</span><span class="p">)</span>
-</span><span id="line-49">        <span class="k">return</span> <span class="p">(</span><span class="n">corrupted_text</span><span class="p">,</span> <span class="n">sample</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">sample</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-</span><span id="line-50">
-</span><span id="line-51">    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="line-52">        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="p">)</span>
-</span><span id="line-53">
-</span><span id="line-54"><span class="n">text</span> <span class="o">=</span> <span class="s2">"This is an example of a corrupted sentence using Python"</span>
-</span><span id="line-55"><span class="nb">print</span><span class="p">(</span><span class="n">corrupt_text</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">))</span>
+</span><span id="line-4"><span class="w">    </span><span class="sd">"""Randomly drop, swap, and repeat characters."""</span>
+</span><span id="line-5">    <span class="n">corrupted</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="line-6">    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">():</span>
+</span><span id="line-7">        <span class="n">chars</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+</span><span id="line-8">        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">chars</span><span class="p">)):</span>
+</span><span id="line-9">            <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">prob</span><span class="p">:</span>
+</span><span id="line-10">                <span class="n">op</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">'swap'</span><span class="p">,</span> <span class="s1">'drop'</span><span class="p">,</span> <span class="s1">'repeat'</span><span class="p">])</span>
+</span><span id="line-11">                <span class="k">if</span> <span class="n">op</span> <span class="o">==</span> <span class="s1">'swap'</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">chars</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+</span><span id="line-12">                    <span class="n">chars</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">chars</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">chars</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">chars</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+</span><span id="line-13">                <span class="k">elif</span> <span class="n">op</span> <span class="o">==</span> <span class="s1">'drop'</span><span class="p">:</span>
+</span><span id="line-14">                    <span class="n">chars</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="s1">''</span>
+</span><span id="line-15">                <span class="k">elif</span> <span class="n">op</span> <span class="o">==</span> <span class="s1">'repeat'</span><span class="p">:</span>
+</span><span id="line-16">                    <span class="n">chars</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">chars</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>
+</span><span id="line-17">        <span class="n">corrupted</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">''</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">chars</span><span class="p">))</span>
+</span><span id="line-18">    <span class="k">return</span> <span class="s1">' '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">corrupted</span><span class="p">)</span>
+</span><span id="line-19">
+</span><span id="line-20"><span class="k">def</span><span class="w"> </span><span class="nf">corrupt_words</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">prob</span><span class="o">=</span><span class="mf">0.2</span><span class="p">):</span>
+</span><span id="line-21"><span class="w">    </span><span class="sd">"""Randomly drop and shuffle words."""</span>
+</span><span id="line-22">    <span class="n">words</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+</span><span id="line-23">    <span class="n">new_words</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="line-24">
+</span><span id="line-25">    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
+</span><span id="line-26">        <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">prob</span><span class="p">:</span>
+</span><span id="line-27">            <span class="n">op</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">'delete'</span><span class="p">,</span> <span class="s1">'shuffle'</span><span class="p">])</span>
+</span><span id="line-28">            <span class="k">if</span> <span class="n">op</span> <span class="o">==</span> <span class="s1">'delete'</span><span class="p">:</span>
+</span><span id="line-29">                <span class="k">continue</span>
+</span><span id="line-30">            <span class="k">elif</span> <span class="n">op</span> <span class="o">==</span> <span class="s1">'shuffle'</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">:</span>
+</span><span id="line-31">                <span class="n">middle</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">word</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</span><span id="line-32">                <span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">middle</span><span class="p">)</span>
+</span><span id="line-33">                <span class="n">word</span> <span class="o">=</span> <span class="n">word</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">''</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">middle</span><span class="p">)</span> <span class="o">+</span> <span class="n">word</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</span><span id="line-34">        <span class="n">new_words</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+</span><span id="line-35">    <span class="k">return</span> <span class="s1">' '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">new_words</span><span class="p">)</span>
+</span><span id="line-36">
+</span><span id="line-37"><span class="k">def</span><span class="w"> </span><span class="nf">corrupt_text</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">char_prob</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">word_prob</span><span class="o">=</span><span class="mf">0.2</span><span class="p">):</span>
+</span><span id="line-38">    <span class="k">return</span> <span class="n">corrupt_characters</span><span class="p">(</span><span class="n">corrupt_words</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">word_prob</span><span class="p">),</span> <span class="n">char_prob</span><span class="p">)</span>
 </span></code></pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">Tihs is an example of a crrupted setnence Python
+<p><strong>Text corruption example</strong>: Below we show how a clean sentence is transformed by our corruption functions,
+simulating real-world noise such as typos, deletions, and character swaps.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="n">text</span> <span class="o">=</span> <span class="s2">"This is an example of a clean sentence"</span>
+</span><span id="line-2">
+</span><span id="line-3"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Original text: </span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="line-4">
+</span><span id="line-5"><span class="n">corrupted_text</span> <span class="o">=</span> <span class="n">corrupt_text</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+</span><span id="line-6"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Corrupted text: </span><span class="si">{</span><span class="n">corrupted_text</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span></code></pre></div>
+</div>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">Original text: This is an example of a clean sentence
+</span><span id="line-2">Corrupted text: hTis is an example of a clen sentence
+</span></code></pre></div>
+</div>
+<p>Lets define a dataset wrapper that applies text corruptions on-the-fly during data loading.
+This allows us to evaluate the model’s robustness without modifying the original dataset.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="k">class</span><span class="w"> </span><span class="nc">CorruptedDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
+</span><span id="line-2">
+</span><span id="line-3">    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">char_prob</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">word_prob</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
+</span><span id="line-4">        <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span>
+</span><span id="line-5">        <span class="bp">self</span><span class="o">.</span><span class="n">char_prob</span> <span class="o">=</span> <span class="n">char_prob</span>
+</span><span id="line-6">        <span class="bp">self</span><span class="o">.</span><span class="n">word_prob</span> <span class="o">=</span> <span class="n">word_prob</span>
+</span><span id="line-7">
+</span><span id="line-8">    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+</span><span id="line-9">        <span class="n">sample</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+</span><span id="line-10">        <span class="n">text</span> <span class="o">=</span> <span class="n">sample</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span><span id="line-11">        <span class="n">corrupted_text</span> <span class="o">=</span> <span class="n">corrupt_text</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">char_prob</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">word_prob</span><span class="p">)</span>
+</span><span id="line-12">        <span class="k">return</span> <span class="p">(</span><span class="n">corrupted_text</span><span class="p">,</span> <span class="n">sample</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">sample</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+</span><span id="line-13">
+</span><span id="line-14">    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="line-15">        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="p">)</span>
 </span></code></pre></div>
 </div>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="n">corrupted_val_data</span> <span class="o">=</span> <span class="n">CorruptedDataset</span><span class="p">(</span><span class="n">val_data</span><span class="p">,</span> <span class="n">char_prob</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">word_prob</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
 </span><span id="line-2"><span class="n">corrupted_val_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">corrupted_val_data</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">num_workers</span><span class="p">,</span> <span class="n">num_workers</span><span class="o">=</span><span class="n">num_workers</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">collate_fn</span><span class="o">=</span><span class="n">collate_fn</span><span class="p">)</span>
 </span></code></pre></div>
 </div>
-<p>Corrupted Validation</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="n">classifier</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
-</span><span id="line-2"><span class="n">all_preds</span><span class="p">,</span> <span class="n">all_labels</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
-</span><span id="line-3"><span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
-</span><span id="line-4">    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">batch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tqdm</span><span class="p">(</span><span class="n">corrupted_val_loader</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">corrupted_val_loader</span><span class="p">))):</span>
-</span><span id="line-5">        <span class="n">batch</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">batch</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
-</span><span id="line-6">        <span class="n">outputs</span> <span class="o">=</span> <span class="n">classifier</span><span class="p">(</span><span class="o">**</span><span class="n">batch</span><span class="p">)</span>
-</span><span id="line-7">        <span class="n">preds</span> <span class="o">=</span> <span class="n">outputs</span><span class="o">.</span><span class="n">logits</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
-</span><span id="line-8">        <span class="n">labels</span> <span class="o">=</span> <span class="n">batch</span><span class="p">[</span><span class="s1">'labels'</span><span class="p">]</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
-</span><span id="line-9">        <span class="n">all_preds</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">preds</span><span class="p">)</span>
-</span><span id="line-10">        <span class="n">all_labels</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
-</span><span id="line-11">
-</span><span id="line-12"><span class="n">acc</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">all_labels</span><span class="p">,</span> <span class="n">all_preds</span><span class="p">)</span>
-</span><span id="line-13"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Validation Accuracy after epoch: </span><span class="si">{</span><span class="n">acc</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<p><strong>Model Evaluation on Corrupted Data</strong>: We now evaluate our fine-tuned BERT model on the corrupted validation set. As shown below, the presence of perturbations significantly degrades classification performance, with a drop of around 20%.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="n">all_preds</span><span class="p">,</span> <span class="n">all_labels</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+</span><span id="line-2"><span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+</span><span id="line-3">    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">batch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">corrupted_val_loader</span><span class="p">):</span>
+</span><span id="line-4">        <span class="n">batch</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">batch</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+</span><span id="line-5">        <span class="n">outputs</span> <span class="o">=</span> <span class="n">classifier</span><span class="p">(</span><span class="o">**</span><span class="n">batch</span><span class="p">)</span>
+</span><span id="line-6">        <span class="n">preds</span> <span class="o">=</span> <span class="n">outputs</span><span class="o">.</span><span class="n">logits</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+</span><span id="line-7">        <span class="n">labels</span> <span class="o">=</span> <span class="n">batch</span><span class="p">[</span><span class="s1">'labels'</span><span class="p">]</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+</span><span id="line-8">        <span class="n">all_preds</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">preds</span><span class="p">)</span>
+</span><span id="line-9">        <span class="n">all_labels</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+</span><span id="line-10">
+</span><span id="line-11"><span class="n">acc</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">all_labels</span><span class="p">,</span> <span class="n">all_preds</span><span class="p">)</span>
+</span><span id="line-12"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Validation Accuracy after epoch: </span><span class="si">{</span><span class="n">acc</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </span></code></pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">  0%|          | 0/52 [00:00&lt;?, ?it/s]
-</span><span id="line-2">  2%|▏         | 1/52 [00:01&lt;01:26,  1.70s/it]
-</span><span id="line-3">  6%|▌         | 3/52 [00:01&lt;00:24,  2.01it/s]
-</span><span id="line-4"> 10%|▉         | 5/52 [00:01&lt;00:12,  3.69it/s]
-</span><span id="line-5"> 13%|█▎        | 7/52 [00:02&lt;00:08,  5.54it/s]
-</span><span id="line-6"> 17%|█▋        | 9/52 [00:02&lt;00:05,  7.46it/s]
-</span><span id="line-7"> 21%|██        | 11/52 [00:02&lt;00:04,  9.32it/s]
-</span><span id="line-8"> 25%|██▌       | 13/52 [00:02&lt;00:03, 11.02it/s]
-</span><span id="line-9"> 29%|██▉       | 15/52 [00:02&lt;00:02, 12.48it/s]
-</span><span id="line-10"> 33%|███▎      | 17/52 [00:02&lt;00:02, 13.72it/s]
-</span><span id="line-11"> 37%|███▋      | 19/52 [00:02&lt;00:02, 14.53it/s]
-</span><span id="line-12"> 40%|████      | 21/52 [00:02&lt;00:02, 15.32it/s]
-</span><span id="line-13"> 44%|████▍     | 23/52 [00:03&lt;00:01, 15.87it/s]
-</span><span id="line-14"> 48%|████▊     | 25/52 [00:03&lt;00:01, 16.33it/s]
-</span><span id="line-15"> 52%|█████▏    | 27/52 [00:03&lt;00:01, 16.68it/s]
-</span><span id="line-16"> 56%|█████▌    | 29/52 [00:03&lt;00:01, 16.93it/s]
-</span><span id="line-17"> 60%|█████▉    | 31/52 [00:03&lt;00:01, 17.08it/s]
-</span><span id="line-18"> 63%|██████▎   | 33/52 [00:03&lt;00:01, 17.21it/s]
-</span><span id="line-19"> 67%|██████▋   | 35/52 [00:03&lt;00:00, 17.31it/s]
-</span><span id="line-20"> 71%|███████   | 37/52 [00:03&lt;00:00, 17.37it/s]
-</span><span id="line-21"> 75%|███████▌  | 39/52 [00:03&lt;00:00, 17.34it/s]
-</span><span id="line-22"> 79%|███████▉  | 41/52 [00:04&lt;00:00, 17.39it/s]
-</span><span id="line-23"> 83%|████████▎ | 43/52 [00:04&lt;00:00, 17.27it/s]
-</span><span id="line-24"> 87%|████████▋ | 45/52 [00:04&lt;00:00, 17.34it/s]
-</span><span id="line-25"> 90%|█████████ | 47/52 [00:04&lt;00:00, 17.39it/s]
-</span><span id="line-26"> 94%|█████████▍| 49/52 [00:04&lt;00:00, 17.44it/s]
-</span><span id="line-27"> 98%|█████████▊| 51/52 [00:04&lt;00:00, 17.38it/s]
-</span><span id="line-28">100%|██████████| 52/52 [00:04&lt;00:00, 10.98it/s]
-</span><span id="line-29">Validation Accuracy after epoch: 0.3791
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">Validation Accuracy after epoch: 0.3791
 </span></code></pre></div>
 </div>
 </section>
-<section id="masked-test-time-training-for-generalization">
-<h2>Masked Test-Time Training for Generalization<a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#masked-test-time-training-for-generalization" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#masked-test-time-training-for-generalization'"><span>#</span></a></h2>
+</section>
+<section id="ttt-optimized-bert-evaluation">
+<h2>TTT-Optimized BERT Evaluation<a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#ttt-optimized-bert-evaluation" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#ttt-optimized-bert-evaluation'"><span>#</span></a></h2>
+<p>We evaluate the BERT model enhanced with Masked Test-Time Training (MaskedTTT) on the corrupted validation set.
+The TTT engine performs an adaptation step during inference, using masked tokens and self-supervised
+MLM loss to refine the model’s final prediction. As shown below, this approach recovers some performance lost
+due to input corruptions and improves accuracy compared to the non-adapted model.</p>
+<section id="evaluating-optimized-bert-on-corrupted-data">
+<h3>Evaluating Optimized BERT on Corrupted Data<a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#evaluating-optimized-bert-on-corrupted-data" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#evaluating-optimized-bert-on-corrupted-data'"><span>#</span></a></h3>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="kn">from</span><span class="w"> </span><span class="nn">torch_ttt.engine.masked_ttt_engine</span><span class="w"> </span><span class="kn">import</span> <span class="n">MaskedTTTEngine</span>
 </span></code></pre></div>
 </div>
@@ -604,63 +633,63 @@ For this tutorial, we’ll focus on a single corruption type: character-level ty
 </span></code></pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">  0%|          | 0/52 [00:00&lt;?, ?it/s]
-</span><span id="line-2">  2%|▏         | 1/52 [00:02&lt;01:47,  2.12s/it]
-</span><span id="line-3">  4%|▍         | 2/52 [00:02&lt;00:52,  1.06s/it]
-</span><span id="line-4">  6%|▌         | 3/52 [00:02&lt;00:35,  1.36it/s]
-</span><span id="line-5">  8%|▊         | 4/52 [00:03&lt;00:27,  1.75it/s]
-</span><span id="line-6"> 10%|▉         | 5/52 [00:03&lt;00:22,  2.11it/s]
-</span><span id="line-7"> 12%|█▏        | 6/52 [00:03&lt;00:19,  2.38it/s]
-</span><span id="line-8"> 13%|█▎        | 7/52 [00:04&lt;00:17,  2.62it/s]
-</span><span id="line-9"> 15%|█▌        | 8/52 [00:04&lt;00:15,  2.81it/s]
-</span><span id="line-10"> 17%|█▋        | 9/52 [00:04&lt;00:14,  2.94it/s]
-</span><span id="line-11"> 19%|█▉        | 10/52 [00:04&lt;00:13,  3.04it/s]
-</span><span id="line-12"> 21%|██        | 11/52 [00:05&lt;00:15,  2.57it/s]
-</span><span id="line-13"> 23%|██▎       | 12/52 [00:05&lt;00:14,  2.76it/s]
-</span><span id="line-14"> 25%|██▌       | 13/52 [00:06&lt;00:13,  2.89it/s]
-</span><span id="line-15"> 27%|██▋       | 14/52 [00:06&lt;00:12,  3.06it/s]
-</span><span id="line-16"> 29%|██▉       | 15/52 [00:06&lt;00:11,  3.18it/s]
-</span><span id="line-17"> 31%|███       | 16/52 [00:06&lt;00:11,  3.24it/s]
-</span><span id="line-18"> 33%|███▎      | 17/52 [00:07&lt;00:10,  3.31it/s]
-</span><span id="line-19"> 35%|███▍      | 18/52 [00:07&lt;00:10,  3.38it/s]
-</span><span id="line-20"> 37%|███▋      | 19/52 [00:07&lt;00:09,  3.43it/s]
-</span><span id="line-21"> 38%|███▊      | 20/52 [00:08&lt;00:09,  3.45it/s]
-</span><span id="line-22"> 40%|████      | 21/52 [00:08&lt;00:09,  3.43it/s]
+</span><span id="line-2">  2%|▏         | 1/52 [00:01&lt;01:26,  1.71s/it]
+</span><span id="line-3">  4%|▍         | 2/52 [00:02&lt;00:44,  1.11it/s]
+</span><span id="line-4">  6%|▌         | 3/52 [00:02&lt;00:30,  1.61it/s]
+</span><span id="line-5">  8%|▊         | 4/52 [00:02&lt;00:23,  2.04it/s]
+</span><span id="line-6"> 10%|▉         | 5/52 [00:02&lt;00:19,  2.39it/s]
+</span><span id="line-7"> 12%|█▏        | 6/52 [00:03&lt;00:17,  2.68it/s]
+</span><span id="line-8"> 13%|█▎        | 7/52 [00:03&lt;00:15,  2.90it/s]
+</span><span id="line-9"> 15%|█▌        | 8/52 [00:03&lt;00:14,  3.06it/s]
+</span><span id="line-10"> 17%|█▋        | 9/52 [00:04&lt;00:13,  3.16it/s]
+</span><span id="line-11"> 19%|█▉        | 10/52 [00:04&lt;00:12,  3.25it/s]
+</span><span id="line-12"> 21%|██        | 11/52 [00:04&lt;00:12,  3.28it/s]
+</span><span id="line-13"> 23%|██▎       | 12/52 [00:05&lt;00:15,  2.63it/s]
+</span><span id="line-14"> 25%|██▌       | 13/52 [00:05&lt;00:13,  2.83it/s]
+</span><span id="line-15"> 27%|██▋       | 14/52 [00:05&lt;00:12,  2.99it/s]
+</span><span id="line-16"> 29%|██▉       | 15/52 [00:06&lt;00:11,  3.13it/s]
+</span><span id="line-17"> 31%|███       | 16/52 [00:06&lt;00:11,  3.22it/s]
+</span><span id="line-18"> 33%|███▎      | 17/52 [00:06&lt;00:10,  3.23it/s]
+</span><span id="line-19"> 35%|███▍      | 18/52 [00:06&lt;00:10,  3.28it/s]
+</span><span id="line-20"> 37%|███▋      | 19/52 [00:07&lt;00:09,  3.33it/s]
+</span><span id="line-21"> 38%|███▊      | 20/52 [00:07&lt;00:09,  3.37it/s]
+</span><span id="line-22"> 40%|████      | 21/52 [00:07&lt;00:09,  3.38it/s]
 </span><span id="line-23"> 42%|████▏     | 22/52 [00:08&lt;00:08,  3.42it/s]
-</span><span id="line-24"> 44%|████▍     | 23/52 [00:08&lt;00:08,  3.36it/s]
-</span><span id="line-25"> 46%|████▌     | 24/52 [00:09&lt;00:08,  3.33it/s]
-</span><span id="line-26"> 48%|████▊     | 25/52 [00:09&lt;00:08,  3.31it/s]
-</span><span id="line-27"> 50%|█████     | 26/52 [00:09&lt;00:07,  3.30it/s]
-</span><span id="line-28"> 52%|█████▏    | 27/52 [00:10&lt;00:07,  3.30it/s]
-</span><span id="line-29"> 54%|█████▍    | 28/52 [00:10&lt;00:07,  3.29it/s]
-</span><span id="line-30"> 56%|█████▌    | 29/52 [00:10&lt;00:06,  3.29it/s]
-</span><span id="line-31"> 58%|█████▊    | 30/52 [00:11&lt;00:06,  3.28it/s]
-</span><span id="line-32"> 60%|█████▉    | 31/52 [00:11&lt;00:07,  2.83it/s]
-</span><span id="line-33"> 62%|██████▏   | 32/52 [00:11&lt;00:06,  2.95it/s]
-</span><span id="line-34"> 63%|██████▎   | 33/52 [00:12&lt;00:06,  3.05it/s]
-</span><span id="line-35"> 65%|██████▌   | 34/52 [00:12&lt;00:05,  3.11it/s]
-</span><span id="line-36"> 67%|██████▋   | 35/52 [00:12&lt;00:05,  3.15it/s]
-</span><span id="line-37"> 69%|██████▉   | 36/52 [00:13&lt;00:05,  3.19it/s]
-</span><span id="line-38"> 71%|███████   | 37/52 [00:13&lt;00:04,  3.22it/s]
-</span><span id="line-39"> 73%|███████▎  | 38/52 [00:13&lt;00:04,  3.24it/s]
-</span><span id="line-40"> 75%|███████▌  | 39/52 [00:14&lt;00:03,  3.26it/s]
-</span><span id="line-41"> 77%|███████▋  | 40/52 [00:14&lt;00:03,  3.28it/s]
-</span><span id="line-42"> 79%|███████▉  | 41/52 [00:14&lt;00:03,  3.29it/s]
-</span><span id="line-43"> 81%|████████  | 42/52 [00:14&lt;00:03,  3.29it/s]
-</span><span id="line-44"> 83%|████████▎ | 43/52 [00:15&lt;00:02,  3.30it/s]
-</span><span id="line-45"> 85%|████████▍ | 44/52 [00:15&lt;00:02,  3.27it/s]
-</span><span id="line-46"> 87%|████████▋ | 45/52 [00:15&lt;00:02,  3.27it/s]
-</span><span id="line-47"> 88%|████████▊ | 46/52 [00:16&lt;00:01,  3.31it/s]
-</span><span id="line-48"> 90%|█████████ | 47/52 [00:16&lt;00:01,  3.30it/s]
-</span><span id="line-49"> 92%|█████████▏| 48/52 [00:16&lt;00:01,  3.31it/s]
-</span><span id="line-50"> 94%|█████████▍| 49/52 [00:17&lt;00:00,  3.32it/s]
-</span><span id="line-51"> 96%|█████████▌| 50/52 [00:17&lt;00:00,  3.31it/s]
-</span><span id="line-52"> 98%|█████████▊| 51/52 [00:17&lt;00:00,  2.84it/s]
-</span><span id="line-53">100%|██████████| 52/52 [00:17&lt;00:00,  3.51it/s]
-</span><span id="line-54">100%|██████████| 52/52 [00:18&lt;00:00,  2.88it/s]
+</span><span id="line-24"> 44%|████▍     | 23/52 [00:08&lt;00:08,  3.43it/s]
+</span><span id="line-25"> 46%|████▌     | 24/52 [00:08&lt;00:08,  3.44it/s]
+</span><span id="line-26"> 48%|████▊     | 25/52 [00:08&lt;00:07,  3.46it/s]
+</span><span id="line-27"> 50%|█████     | 26/52 [00:09&lt;00:07,  3.46it/s]
+</span><span id="line-28"> 52%|█████▏    | 27/52 [00:09&lt;00:07,  3.48it/s]
+</span><span id="line-29"> 54%|█████▍    | 28/52 [00:09&lt;00:06,  3.48it/s]
+</span><span id="line-30"> 56%|█████▌    | 29/52 [00:10&lt;00:06,  3.49it/s]
+</span><span id="line-31"> 58%|█████▊    | 30/52 [00:10&lt;00:06,  3.50it/s]
+</span><span id="line-32"> 60%|█████▉    | 31/52 [00:10&lt;00:06,  3.50it/s]
+</span><span id="line-33"> 62%|██████▏   | 32/52 [00:10&lt;00:05,  3.50it/s]
+</span><span id="line-34"> 63%|██████▎   | 33/52 [00:11&lt;00:06,  3.04it/s]
+</span><span id="line-35"> 65%|██████▌   | 34/52 [00:11&lt;00:05,  3.16it/s]
+</span><span id="line-36"> 67%|██████▋   | 35/52 [00:11&lt;00:05,  3.26it/s]
+</span><span id="line-37"> 69%|██████▉   | 36/52 [00:12&lt;00:04,  3.33it/s]
+</span><span id="line-38"> 71%|███████   | 37/52 [00:12&lt;00:04,  3.36it/s]
+</span><span id="line-39"> 73%|███████▎  | 38/52 [00:12&lt;00:04,  3.40it/s]
+</span><span id="line-40"> 75%|███████▌  | 39/52 [00:13&lt;00:03,  3.44it/s]
+</span><span id="line-41"> 77%|███████▋  | 40/52 [00:13&lt;00:03,  3.47it/s]
+</span><span id="line-42"> 79%|███████▉  | 41/52 [00:13&lt;00:03,  3.49it/s]
+</span><span id="line-43"> 81%|████████  | 42/52 [00:13&lt;00:02,  3.49it/s]
+</span><span id="line-44"> 83%|████████▎ | 43/52 [00:14&lt;00:02,  3.51it/s]
+</span><span id="line-45"> 85%|████████▍ | 44/52 [00:14&lt;00:02,  3.50it/s]
+</span><span id="line-46"> 87%|████████▋ | 45/52 [00:14&lt;00:02,  3.49it/s]
+</span><span id="line-47"> 88%|████████▊ | 46/52 [00:15&lt;00:01,  3.50it/s]
+</span><span id="line-48"> 90%|█████████ | 47/52 [00:15&lt;00:01,  3.50it/s]
+</span><span id="line-49"> 92%|█████████▏| 48/52 [00:15&lt;00:01,  3.49it/s]
+</span><span id="line-50"> 94%|█████████▍| 49/52 [00:15&lt;00:00,  3.50it/s]
+</span><span id="line-51"> 96%|█████████▌| 50/52 [00:16&lt;00:00,  3.51it/s]
+</span><span id="line-52"> 98%|█████████▊| 51/52 [00:16&lt;00:00,  3.50it/s]
+</span><span id="line-53">100%|██████████| 52/52 [00:16&lt;00:00,  4.31it/s]
+</span><span id="line-54">100%|██████████| 52/52 [00:16&lt;00:00,  3.10it/s]
 </span><span id="line-55">Validation Accuracy after epoch: 0.4560
 </span></code></pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (7 minutes 29.852 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (7 minutes 4.363 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-03-mae-bert-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/12b373a31cb7f564a68ae5a34744434d/03_mae_bert.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">03_mae_bert.ipynb</span></code></a></p>
@@ -673,6 +702,7 @@ For this tutorial, we’ll focus on a single corruption type: character-level ty
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
 </section>
 </section>
 </div><div class="flex justify-between items-center pt-6 mt-12 border-t border-border gap-4">
@@ -695,15 +725,21 @@ For this tutorial, we’ll focus on a single corruption type: character-level ty
 </div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
 <div class="sticky top-16 -mt-10 max-h-[calc(100vh-5rem)] h-full overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
 <ul>
-<li><a :data-current="activeSection === '#helper-functions'" class="reference internal" href="#helper-functions">Helper Functions</a><ul>
+<li><a :data-current="activeSection === '#model-fine-tuning'" class="reference internal" href="#model-fine-tuning">Model Fine-Tuning</a><ul>
 <li><a :data-current="activeSection === '#data-preparation'" class="reference internal" href="#data-preparation">Data Preparation</a></li>
+<li><a :data-current="activeSection === '#loading-amazon-reviews'" class="reference internal" href="#loading-amazon-reviews">Loading Amazon Reviews</a></li>
+<li><a :data-current="activeSection === '#loading-pretrained-bert'" class="reference internal" href="#loading-pretrained-bert">Loading Pretrained BERT</a></li>
+<li><a :data-current="activeSection === '#fine-tuning-bert'" class="reference internal" href="#fine-tuning-bert">Fine-tuning BERT</a></li>
 </ul>
 </li>
-<li><a :data-current="activeSection === '#loading-wilds-dataset'" class="reference internal" href="#loading-wilds-dataset">Loading WILDS dataset</a></li>
-<li><a :data-current="activeSection === '#loading-pretrained-bert'" class="reference internal" href="#loading-pretrained-bert">Loading Pretrained BERT</a></li>
-<li><a :data-current="activeSection === '#finetuning-bert'" class="reference internal" href="#finetuning-bert">Finetuning BERT</a></li>
-<li><a :data-current="activeSection === '#evalating-bert-on-corrupted-data'" class="reference internal" href="#evalating-bert-on-corrupted-data">Evalating BERT on Corrupted Data</a></li>
-<li><a :data-current="activeSection === '#masked-test-time-training-for-generalization'" class="reference internal" href="#masked-test-time-training-for-generalization">Masked Test-Time Training for Generalization</a></li>
+<li><a :data-current="activeSection === '#original-bert-evaluation'" class="reference internal" href="#original-bert-evaluation">Original BERT Evaluation</a><ul>
+<li><a :data-current="activeSection === '#evaluating-bert-on-corrupted-data'" class="reference internal" href="#evaluating-bert-on-corrupted-data">Evaluating BERT on Corrupted Data</a></li>
+</ul>
+</li>
+<li><a :data-current="activeSection === '#ttt-optimized-bert-evaluation'" class="reference internal" href="#ttt-optimized-bert-evaluation">TTT-Optimized BERT Evaluation</a><ul>
+<li><a :data-current="activeSection === '#evaluating-optimized-bert-on-corrupted-data'" class="reference internal" href="#evaluating-optimized-bert-on-corrupted-data">Evaluating Optimized BERT on Corrupted Data</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </aside>

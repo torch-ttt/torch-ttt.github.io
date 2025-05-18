@@ -75,7 +75,7 @@
 <li class="toctree-l1" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="reference internal expandable" href="index.html">Tutorials<button @click.prevent.stop="expanded = !expanded" type="button"><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul x-show="expanded">
 <li class="toctree-l2"><a class="reference internal" href="01_mnist_TTT.html">TTT for Corrupted MNIST</a></li>
 <li class="toctree-l2"><a class="reference internal" href="02_imagenet_tent.html">ImageNet Robustness with TENT</a></li>
-<li class="toctree-l2"><a class="reference internal" href="03_mae_bert.html">Test-Time Training for Corrupted WILDS Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_mae_bert.html">Test-Time Training with BERT</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../papers.html">Papers</a></li>
@@ -103,7 +103,7 @@
 <div id="content" role="main">
 <section id="computation-times">
 <span id="sphx-glr-auto-examples-sg-execution-times"></span><h1>Computation times<a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#computation-times"><span>#</span></a></h1>
-<p><strong>10:52.648</strong> total execution time for 3 files <strong>from auto_examples</strong>:</p>
+<p><strong>10:21.588</strong> total execution time for 3 files <strong>from auto_examples</strong>:</p>
 <div class="docutils container">
 <style scoped="">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
@@ -124,16 +124,16 @@ $(document).ready( function () {
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><a class="reference internal" href="03_mae_bert.html#sphx-glr-auto-examples-03-mae-bert-py"><span class="std std-ref">Test-Time Training for Corrupted WILDS Dataset</span></a> (<code class="docutils literal notranslate"><span class="pre">03_mae_bert.py</span></code>)</p></td>
-<td><p>07:29.852</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="03_mae_bert.html#sphx-glr-auto-examples-03-mae-bert-py"><span class="std std-ref">Test-Time Training with BERT</span></a> (<code class="docutils literal notranslate"><span class="pre">03_mae_bert.py</span></code>)</p></td>
+<td><p>07:04.363</p></td>
 <td><p>0.0</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="02_imagenet_tent.html#sphx-glr-auto-examples-02-imagenet-tent-py"><span class="std std-ref">ImageNet Robustness with TENT</span></a> (<code class="docutils literal notranslate"><span class="pre">02_imagenet_tent.py</span></code>)</p></td>
-<td><p>02:05.309</p></td>
+<td><p>01:59.265</p></td>
 <td><p>0.0</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="01_mnist_TTT.html#sphx-glr-auto-examples-01-mnist-ttt-py"><span class="std std-ref">TTT for Corrupted MNIST</span></a> (<code class="docutils literal notranslate"><span class="pre">01_mnist_TTT.py</span></code>)</p></td>
-<td><p>01:17.487</p></td>
+<td><p>01:17.959</p></td>
 <td><p>0.0</p></td>
 </tr>
 </tbody>
