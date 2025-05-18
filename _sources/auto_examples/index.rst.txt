@@ -54,7 +54,7 @@ Additionally, you will find examples of how specific TTT methods are applied, en
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Explore how Test-Time Training (TTT) can improve model performance under data corruption, using the BERT model fine-tuned with a MaskedTTT engine on the Amazon Reviews dataset.">
+    <div class="sphx-glr-thumbcontainer" tooltip="Discover how Masked Test-Time Training can improve model performance under data corruption.">
 
 .. only:: html
 
@@ -65,7 +65,7 @@ Additionally, you will find examples of how specific TTT methods are applied, en
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Test-Time Training for Corrupted WILDS Dataset</div>
+      <div class="sphx-glr-thumbnail-title">Test-Time Training with BERT</div>
     </div>
 
 

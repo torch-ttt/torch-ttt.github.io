@@ -18,24 +18,25 @@
 .. _sphx_glr_auto_examples_03_mae_bert.py:
 
 
-Test-Time Training for Corrupted WILDS Dataset
+Test-Time Training with BERT
 ==============================================
 
-Explore how Test-Time Training (TTT) can improve model performance under data corruption,
-using the BERT model fine-tuned with a MaskedTTT engine on the Amazon Reviews dataset.
+Discover how Masked Test-Time Training can improve model performance under data corruption.
 
-.. GENERATED FROM PYTHON SOURCE LINES 10-13
+In this tutorial, we use a pretrained BERT model fine-tuned on the Amazon Reviews dataset. During inference, we show how simple text corruptions can significantly degrade the model's performance and how the `MaskedTTT <https://torch-ttt.github.io/_autosummary/torch_ttt.engine.masked_ttt_engine.MaskedTTTEngine.html>`_ engine can natively enhance performance for BERT-based models.
+
+.. GENERATED FROM PYTHON SOURCE LINES 11-13
 
 .. code-block:: Python
 
     print("Uncomment the line below to install torch-ttt if you're running this in Colab")
-    # !pip install git+https://github.com/nikitadurasov/torch-ttt.git
+    # !pip install torch-ttt
 
+.. GENERATED FROM PYTHON SOURCE LINES 14-25
 
-.. GENERATED FROM PYTHON SOURCE LINES 14-24
-
-Helper Functions
+Model Fine-Tuning
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In this first part, we will use a widely adopted pretrained BERT model and fine-tune it on a Amazon Reviews classification task. Below, we walk through data loading and preparation, loading the pretrained BERT model, and its fine-tuning.
 
 Data Preparation
 ^^^^^^^^^^^^^^^^^^^^
@@ -43,9 +44,9 @@ We will work with the Amazon Reviews dataset, which contains customer reviews fo
 To simulate distribution shift, we will use both a clean version of the dataset and a corrupted version that includes noise in the form of typos and text perturbations.
 For this tutorial, we'll focus on a single corruption type: character-level typos.
 
-Let's start by downloading both the clean and corrupted versions of the Amazon Reviews dataset.
+Let's start by downloading the training and validation splits of our Amazon Reviews dataset.
 
-.. GENERATED FROM PYTHON SOURCE LINES 27-35
+.. GENERATED FROM PYTHON SOURCE LINES 28-36
 
 .. code-block:: Python
 
@@ -58,7 +59,7 @@ Let's start by downloading both the clean and corrupted versions of the Amazon R
     os.system("gdown 1UbhmtFn7GEMmcoKdb2lbpf54yZV9mLoF")
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 36-44
+.. GENERATED FROM PYTHON SOURCE LINES 37-48
 
 .. code-block:: Python
 
@@ -69,14 +70,18 @@ Let's start by downloading both the clean and corrupted versions of the Amazon R
     from tqdm import tqdm
     from copy import deepcopy
 
+    # sphinx_gallery_thumbnail_path = '_static/images/examples/bert_horizonal.png'
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 45-47
 
-Loading WILDS dataset
-~~~~~~~~~~~~~~~~~~~~~
 
-.. GENERATED FROM PYTHON SOURCE LINES 50-79
+.. GENERATED FROM PYTHON SOURCE LINES 49-52
+
+Loading Amazon Reviews
+^^^^^^^^^^^^^^^^^^^^
+Each review consists of the review text and a score (from 0 to 4), ranging from most negative to most positive. As we will see below, we treat this as a text classification task, where each review is classified into one of these five classes.
+
+.. GENERATED FROM PYTHON SOURCE LINES 54-99
 
 .. code-block:: Python
 
@@ -109,13 +114,33 @@ Loading WILDS dataset
     train_data = AmazonReviewDataset("train_amazon_review_electronics.pt")
     val_data = AmazonReviewDataset("test_amazon_review_electronics.pt")
 
+    # Review Examples
+    review_sample = train_data[0]
+    print("*"*20 + " Review #1 " + "*"*20)
+    print(f"Review text: {review_sample[0]}")
+    print(f"Review score: {review_sample[1]} (from 0 to 4)\n")
 
-.. GENERATED FROM PYTHON SOURCE LINES 80-82
+    review_sample = train_data[10]
+    print("*"*20 + " Review #2 " + "*"*20)
+    print(f"Review text: {review_sample[0]}")
+    print(f"Review score: {review_sample[1]}\n")
+
+    review_sample = train_data[100]
+    print("*"*20 + " Review #3 " + "*"*20)
+    print(f"Review text: {review_sample[0]}")
+    print(f"Review score: {review_sample[1]}\n")
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 100-106
 
 Loading Pretrained BERT
-~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^
+In this subsection, we load a pretrained BERT model with a Masked Language Modeling (MLM) head. 
+We demonstrate how BERT predicts missing words by masking a token in a sentence and retrieving 
+the top predictions using the MLM head. This showcases the model's ability to understand context 
+and semantics in text, which we will later leverage in our Test-Time Training approach.
 
-.. GENERATED FROM PYTHON SOURCE LINES 85-130
+.. GENERATED FROM PYTHON SOURCE LINES 108-124
 
 .. code-block:: Python
 
@@ -134,7 +159,19 @@ Loading Pretrained BERT
     bert = mlm_model.bert
     mlm_head = mlm_model.cls
 
-    # Input sentence with a masked token
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 125-128
+
+In the example below, we mask one of the words in a sentence and use the MLM head to predict 
+the missing token. The model returns the most likely candidates to fill in the blank, illustrating 
+its contextual understanding of language.
+
+.. GENERATED FROM PYTHON SOURCE LINES 128-159
+
+.. code-block:: Python
+
+
     text = "The Milky Way is a spiral [MASK]."
     inputs = tokenizer(text, return_tensors="pt")
     input_ids = inputs["input_ids"]
@@ -157,6 +194,7 @@ Loading Pretrained BERT
     top_3_tokens = torch.topk(mask_logits, k=5, dim=1).indices[0].tolist()
 
     # Print predictions
+    print("\n\n" + "*"*20 + " BERT-based Token Reconstruction " + "*"*20)
     print("Original:", text)
     for i, token_id in enumerate(top_3_tokens):
         predicted_token = tokenizer.decode([token_id])
@@ -165,12 +203,15 @@ Loading Pretrained BERT
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 131-133
+.. GENERATED FROM PYTHON SOURCE LINES 160-165
 
-Finetuning BERT
-~~~~~~~~~~~~~~~
+Fine-tuning BERT
+^^^^^^^^^^^^^^^^^^^^
+We now fine-tune the pretrained BERT encoder for a multi-class sentiment classification task using the Amazon Reviews dataset. To address class imbalance, we compute class frequencies and apply a *WeightedRandomSampler* to ensure balanced training.
 
-.. GENERATED FROM PYTHON SOURCE LINES 136-148
+We define a custom classification head on top of BERT, consisting of several fully connected layers, and use the [CLS] token representation for prediction. The model is trained using cross-entropy loss with class weights, and a learning rate scheduler is set up for stable optimization.
+
+.. GENERATED FROM PYTHON SOURCE LINES 167-179
 
 .. code-block:: Python
 
@@ -187,27 +228,31 @@ Finetuning BERT
     device = "cuda"
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 149-154
+.. GENERATED FROM PYTHON SOURCE LINES 180-188
 
 .. code-block:: Python
 
     from collections import Counter
+
+    # Class frequencies (heavily imbalanced)
     labels = [train_data[i][1].item() for i in range(len(train_data))]
     sorted_freq = sorted(Counter([int(x) for x in labels]).items(), key=lambda x: x[0])
-    print(sorted_freq)
+    for f in sorted_freq:
+      print(f"Class {f[0]}: {f[1]} samples")
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 155-168
+.. GENERATED FROM PYTHON SOURCE LINES 189-203
 
 .. code-block:: Python
 
     from torch.utils.data import WeightedRandomSampler
 
-    # Count samples per class
+    # Compute weights per class
     class_counts = np.bincount(labels)
     class_weights = 1. / class_counts
     sample_weights = class_weights[labels]
 
+    # Create weighted sampler for Dataloader
     sampler = WeightedRandomSampler(
         weights=sample_weights,
         num_samples=len(sample_weights),
@@ -215,11 +260,11 @@ Finetuning BERT
     )
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 169-170
+.. GENERATED FROM PYTHON SOURCE LINES 204-205
 
 Class sample counts
 
-.. GENERATED FROM PYTHON SOURCE LINES 170-221
+.. GENERATED FROM PYTHON SOURCE LINES 205-256
 
 .. code-block:: Python
 
@@ -275,13 +320,14 @@ Class sample counts
     classifier = classifier.train()
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 222-223
+.. GENERATED FROM PYTHON SOURCE LINES 257-258
 
-Use HuggingFace tokenizer
+**Training parameters**: We use the standard BERT tokenizer from HuggingFace. All training parameters—such as the number of epochs, batch size, and learning rate—are listed below.
 
-.. GENERATED FROM PYTHON SOURCE LINES 223-247
+.. GENERATED FROM PYTHON SOURCE LINES 258-283
 
 .. code-block:: Python
+
 
     tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
 
@@ -308,13 +354,14 @@ Use HuggingFace tokenizer
                                  num_training_steps=len(train_loader)*epochs_num)
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 248-249
+.. GENERATED FROM PYTHON SOURCE LINES 284-285
 
-Training loop
+**Training loop**: Here we fine-tune the BERT classifier using weighted cross-entropy and the AdamW optimizer with a learning rate scheduler. After each epoch, we evaluate accuracy on the validation set to track performance.
 
-.. GENERATED FROM PYTHON SOURCE LINES 249-275
+.. GENERATED FROM PYTHON SOURCE LINES 285-312
 
 .. code-block:: Python
+
 
     for epoch in range(epochs_num):
         classifier.train()
@@ -343,18 +390,18 @@ Training loop
         print(f"Validation Accuracy after epoch {epoch+1}: {acc:.4f}")
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 276-277
+.. GENERATED FROM PYTHON SOURCE LINES 313-314
 
-Validation
+**Validation Evaluation**: After fine-tuning, our BERT model achieves approximately 60% accuracy on the Amazon Reviews test set.
 
-.. GENERATED FROM PYTHON SOURCE LINES 277-292
+.. GENERATED FROM PYTHON SOURCE LINES 314-329
 
 .. code-block:: Python
 
     classifier = classifier.eval()
     all_preds, all_labels = [], []
     with torch.no_grad():
-        for i, batch in enumerate(tqdm(val_loader, total=len(val_loader))):
+        for i, batch in enumerate(val_loader):
             batch = {k: v.to(device) for k, v in batch.items()}
             outputs = classifier(**batch)
             preds = outputs.logits.argmax(dim=-1).cpu().numpy()
@@ -363,22 +410,35 @@ Validation
             all_labels.extend(labels)
 
     acc = accuracy_score(all_labels, all_preds)
-    print(f"Validation Accuracy after epoch: {acc:.4f}")
+    print(f"Validation Accuracy (FINAL): {acc:.4f}")
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 293-295
+.. GENERATED FROM PYTHON SOURCE LINES 330-335
 
-Evalating BERT on Corrupted Data
+Original BERT Evaluation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In this section, we simulate real-world noise by applying text corruptions—such as character swaps, deletions, and word shuffling—to the validation set. We define a *CorruptedDataset* wrapper that dynamically applies these perturbations during data loading.
 
-.. GENERATED FROM PYTHON SOURCE LINES 298-354
+We then evaluate the fine-tuned BERT classifier from the previous sections on this corrupted data to measure its robustness. As expected, even minor textual noise can lead to a noticeable drop in performance, highlighting the need for techniques like Test-Time Training.
+
+.. GENERATED FROM PYTHON SOURCE LINES 337-343
+
+Evaluating BERT on Corrupted Data
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+We start by defining simple text corruption functions that simulate real-world noise, such as typos and word scrambling.
+These include character-level operations (e.g., dropping, swapping, or repeating characters) and word-level perturbations 
+(e.g., deleting or shuffling words). We combine these operations to create corrupted versions of clean input text,
+which will later be used to assess how well the fine-tuned BERT model performs on noisy inputs.
+
+.. GENERATED FROM PYTHON SOURCE LINES 345-384
 
 .. code-block:: Python
 
     import random
 
     def corrupt_characters(text, prob=0.1):
+        """Randomly drop, swap, and repeat characters."""
         corrupted = []
         for word in text.split():
             chars = list(word)
@@ -395,6 +455,7 @@ Evalating BERT on Corrupted Data
         return ' '.join(corrupted)
 
     def corrupt_words(text, prob=0.2):
+        """Randomly drop and shuffle words."""
         words = text.split()
         new_words = []
 
@@ -413,6 +474,35 @@ Evalating BERT on Corrupted Data
     def corrupt_text(text, char_prob=0.1, word_prob=0.2):
         return corrupt_characters(corrupt_words(text, word_prob), char_prob)
 
+
+.. GENERATED FROM PYTHON SOURCE LINES 385-387
+
+**Text corruption example**: Below we show how a clean sentence is transformed by our corruption functions,
+simulating real-world noise such as typos, deletions, and character swaps.
+
+.. GENERATED FROM PYTHON SOURCE LINES 387-395
+
+.. code-block:: Python
+
+
+    text = "This is an example of a clean sentence"
+
+    print(f"Original text: {text}")
+
+    corrupted_text = corrupt_text(text, 0.1, 0.1)
+    print(f"Corrupted text: {corrupted_text}")
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 396-398
+
+Lets define a dataset wrapper that applies text corruptions on-the-fly during data loading. 
+This allows us to evaluate the model's robustness without modifying the original dataset.
+
+.. GENERATED FROM PYTHON SOURCE LINES 398-415
+
+.. code-block:: Python
+
+
     class CorruptedDataset(Dataset):
 
         def __init__(self, dataset, char_prob=0.1, word_prob=0.1):
@@ -429,11 +519,8 @@ Evalating BERT on Corrupted Data
         def __len__(self):
             return len(self.dataset)
 
-    text = "This is an example of a corrupted sentence using Python"
-    print(corrupt_text(text, 0.1, 0.1))
 
-
-.. GENERATED FROM PYTHON SOURCE LINES 355-358
+.. GENERATED FROM PYTHON SOURCE LINES 416-419
 
 .. code-block:: Python
 
@@ -441,18 +528,17 @@ Evalating BERT on Corrupted Data
     corrupted_val_loader = DataLoader(corrupted_val_data, batch_size=num_workers, num_workers=num_workers, shuffle=True, collate_fn=collate_fn)
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 359-360
+.. GENERATED FROM PYTHON SOURCE LINES 420-421
 
-Corrupted Validation
+**Model Evaluation on Corrupted Data**: We now evaluate our fine-tuned BERT model on the corrupted validation set. As shown below, the presence of perturbations significantly degrades classification performance, with a drop of around 20%.
 
-.. GENERATED FROM PYTHON SOURCE LINES 360-375
+.. GENERATED FROM PYTHON SOURCE LINES 421-435
 
 .. code-block:: Python
 
-    classifier = classifier.eval()
     all_preds, all_labels = [], []
     with torch.no_grad():
-        for i, batch in enumerate(tqdm(corrupted_val_loader, total=len(corrupted_val_loader))):
+        for i, batch in enumerate(corrupted_val_loader):
             batch = {k: v.to(device) for k, v in batch.items()}
             outputs = classifier(**batch)
             preds = outputs.logits.argmax(dim=-1).cpu().numpy()
@@ -465,19 +551,28 @@ Corrupted Validation
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 376-378
+.. GENERATED FROM PYTHON SOURCE LINES 436-442
 
-Masked Test-Time Training for Generalization
+TTT-Optimized BERT Evaluation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+We evaluate the BERT model enhanced with Masked Test-Time Training (MaskedTTT) on the corrupted validation set.
+The TTT engine performs an adaptation step during inference, using masked tokens and self-supervised
+MLM loss to refine the model’s final prediction. As shown below, this approach recovers some performance lost
+due to input corruptions and improves accuracy compared to the non-adapted model.
 
-.. GENERATED FROM PYTHON SOURCE LINES 381-383
+.. GENERATED FROM PYTHON SOURCE LINES 444-446
+
+Evaluating Optimized BERT on Corrupted Data
+^^^^^^^^^^^^^^^^^^^^
+
+.. GENERATED FROM PYTHON SOURCE LINES 449-451
 
 .. code-block:: Python
 
     from torch_ttt.engine.masked_ttt_engine import MaskedTTTEngine
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 384-395
+.. GENERATED FROM PYTHON SOURCE LINES 452-463
 
 .. code-block:: Python
 
@@ -493,7 +588,7 @@ Masked Test-Time Training for Generalization
     engine.optimization_parameters["lr"] = 3e-5
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 396-407
+.. GENERATED FROM PYTHON SOURCE LINES 464-475
 
 .. code-block:: Python
 
