@@ -123,11 +123,65 @@
 <dt class="sig sig-object py" id="torch_ttt.engine.deyo_engine.DeYOEngine">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch_ttt.engine.deyo_engine.</span></span><span class="sig-name descname"><span class="pre">DeYOEngine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimization_parameters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e_margin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3.4538776394910684</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plpd_thresh</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ent_norm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2.763102111592855</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch_len</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reweight_ent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reweight_plpd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch_ttt/engine/deyo_engine.html#DeYOEngine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#torch_ttt.engine.deyo_engine.DeYOEngine" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#torch_ttt.engine.deyo_engine.DeYOEngine'"><span>#</span></a></dt>
 <dd><p><strong>DeYO</strong>: Destroy Your Object – Test-Time Adaptation with PLPD.</p>
-<dl class="simple">
-<dt>Reference:</dt><dd><p>“Entropy is Not Enough for Test-Time Adaptation” (ICLR 2024)
-Lee et al.</p>
+<p>DeYO adapts models at test-time by combining entropy minimization with Patch Label Preservation Deviation (PLPD). It filters uncertain and unstable samples using entropy and patch perturbation sensitivity, updating normalization layers with confident ones.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<em>torch.nn.Module</em>) – Model to be adapted at test-time.</p></li>
+<li><p><strong>optimization_parameters</strong> (<em>dict</em><em>, </em><em>optional</em>) – Optimizer configuration.</p></li>
+<li><p><strong>e_margin</strong> (<em>float</em>) – Entropy threshold for filtering uncertain samples.</p></li>
+<li><p><strong>plpd_thresh</strong> (<em>float</em>) – PLPD threshold to filter unstable predictions.</p></li>
+<li><p><strong>ent_norm</strong> (<em>float</em>) – Normalization constant for entropy weighting.</p></li>
+<li><p><strong>patch_len</strong> (<em>int</em>) – Number of patches per spatial dimension for input shuffling.</p></li>
+<li><p><strong>reweight_ent</strong> (<em>float</em>) – Scaling factor for entropy-based weighting.</p></li>
+<li><p><strong>reweight_plpd</strong> (<em>float</em>) – Scaling factor for PLPD-based weighting.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Example<span class="colon">:</span></dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="kn">from</span><span class="w"> </span><span class="nn">torch_ttt.engine.deyo_engine</span><span class="w"> </span><span class="kn">import</span> <span class="n">DeYOEngine</span>
+</span><span id="line-2">
+</span><span id="line-3"><span class="n">model</span> <span class="o">=</span> <span class="n">MyModel</span><span class="p">()</span>
+</span><span id="line-4"><span class="n">engine</span> <span class="o">=</span> <span class="n">DeYOEngine</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="p">{</span><span class="s2">"lr"</span><span class="p">:</span> <span class="mf">1e-3</span><span class="p">})</span>
+</span><span id="line-5"><span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">engine</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">)</span>
+</span><span id="line-6">
+</span><span id="line-7"><span class="c1"># Training</span>
+</span><span id="line-8"><span class="n">engine</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+</span><span id="line-9"><span class="k">for</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">labels</span> <span class="ow">in</span> <span class="n">train_loader</span><span class="p">:</span>
+</span><span id="line-10">    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+</span><span id="line-11">    <span class="n">outputs</span><span class="p">,</span> <span class="n">loss_ttt</span> <span class="o">=</span> <span class="n">engine</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+</span><span id="line-12">    <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span> <span class="o">+</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">loss_ttt</span>
+</span><span id="line-13">    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+</span><span id="line-14">    <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+</span><span id="line-15">
+</span><span id="line-16"><span class="c1"># Inference</span>
+</span><span id="line-17"><span class="n">engine</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+</span><span id="line-18"><span class="k">for</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">labels</span> <span class="ow">in</span> <span class="n">test_loader</span><span class="p">:</span>
+</span><span id="line-19">    <span class="n">output</span><span class="p">,</span> <span class="n">loss_ttt</span> <span class="o">=</span> <span class="n">engine</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+</span></code></pre></div>
+</div>
+<p>Reference:</p>
+<blockquote>
+<div><p>“Entropy is not Enough for Test-Time Adaptation: From the Perspective of Disentangled Factors”,
+Jonghyun Lee, Dahuin Jung, Saehyung Lee, Junsung Park, Juhyeon Shin, Uiwon Hwang, Sungroh Yoon</p>
+<p>Paper link: <a class="reference external" href="https://openreview.net/pdf?id=9w3iw8wDuE">PDF</a></p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="torch_ttt.engine.deyo_engine.DeYOEngine.ttt_forward">
+<span class="sig-name descname"><span class="pre">ttt_forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Tensor</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/torch_ttt/engine/deyo_engine.html#DeYOEngine.ttt_forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#torch_ttt.engine.deyo_engine.DeYOEngine.ttt_forward" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#torch_ttt.engine.deyo_engine.DeYOEngine.ttt_forward'"><span>#</span></a></dt>
+<dd><p>Forward pass and loss computation for test-time adaptation.</p>
+<p>Selects confident and stable samples using entropy and PLPD filtering.
+Computes a weighted entropy loss over reliable inputs for adaptation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>inputs</strong> (<em>torch.Tensor</em>) – Input tensor.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The current model prediction and PLPD-based loss.</p>
 </dd>
 </dl>
+</dd></dl>
 </dd></dl>
 </section>
 </div><div class="flex justify-between items-center pt-6 mt-12 border-t border-border gap-4">
@@ -142,7 +196,10 @@ Lee et al.</p>
 </div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
 <div class="sticky top-16 -mt-10 max-h-[calc(100vh-5rem)] h-full overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
 <ul>
-<li><a :data-current="activeSection === '#torch_ttt.engine.deyo_engine.DeYOEngine'" class="reference internal" href="#torch_ttt.engine.deyo_engine.DeYOEngine"><code class="docutils literal notranslate"><span class="pre">DeYOEngine</span></code></a></li>
+<li><a :data-current="activeSection === '#torch_ttt.engine.deyo_engine.DeYOEngine'" class="reference internal" href="#torch_ttt.engine.deyo_engine.DeYOEngine"><code class="docutils literal notranslate"><span class="pre">DeYOEngine</span></code></a><ul>
+<li><a :data-current="activeSection === '#torch_ttt.engine.deyo_engine.DeYOEngine.ttt_forward'" class="reference internal" href="#torch_ttt.engine.deyo_engine.DeYOEngine.ttt_forward"><code class="docutils literal notranslate"><span class="pre">DeYOEngine.ttt_forward()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </div>
 </aside>

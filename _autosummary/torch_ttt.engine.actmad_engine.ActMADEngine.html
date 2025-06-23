@@ -124,6 +124,8 @@
 <dt class="sig sig-object py" id="torch_ttt.engine.actmad_engine.ActMADEngine">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch_ttt.engine.actmad_engine.</span></span><span class="sig-name descname"><span class="pre">ActMADEngine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features_layer_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimization_parameters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch_ttt/engine/actmad_engine.html#ActMADEngine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#torch_ttt.engine.actmad_engine.ActMADEngine" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#torch_ttt.engine.actmad_engine.ActMADEngine'"><span>#</span></a></dt>
 <dd><p><strong>ActMAD</strong> approach: multi-level pixel-wise feature alignment.</p>
+<p>ActMAD adapts models at test-time by aligning activation statistics (means and variances)
+of the test inputs to those from clean training data, across multiple layers of the network. It requires no labels or auxiliary tasks, and is applicable to any architecture and task.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -186,7 +188,7 @@
 <dd class="field-odd"><p><strong>inputs</strong> (<em>torch.Tensor</em>) – Input tensor.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Returns the current model prediction and rotation loss value.</p>
+<dd class="field-even"><p>The current model prediction and the alignment loss based on activation statistics.</p>
 </dd>
 </dl>
 </dd></dl>

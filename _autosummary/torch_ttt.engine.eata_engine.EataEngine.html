@@ -124,15 +124,68 @@
 <dt class="sig sig-object py" id="torch_ttt.engine.eata_engine.EataEngine">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch_ttt.engine.eata_engine.</span></span><span class="sig-name descname"><span class="pre">EataEngine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimization_parameters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e_margin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2.4538776394910684</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d_margin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fisher_alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fishers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Tensor</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch_ttt/engine/eata_engine.html#EataEngine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#torch_ttt.engine.eata_engine.EataEngine" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#torch_ttt.engine.eata_engine.EataEngine'"><span>#</span></a></dt>
 <dd><p><strong>EATA</strong>: Efficient Test-Time Adaptation without Forgetting.</p>
-<dl class="simple">
-<dt>Reference:</dt><dd><p>“Efficient Test-Time Model Adaptation without Forgetting” (ICML 2022)
-Zhang et al.</p>
+<p>EATA improves test-time robustness by minimizing entropy on confident, diverse predictions, while preserving prior knowledge via Fisher regularization. Only BatchNorm affine parameters are updated.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<em>torch.nn.Module</em>) – Model to be adapted at test-time.</p></li>
+<li><p><strong>optimization_parameters</strong> (<em>dict</em><em>, </em><em>optional</em>) – Optimizer configuration.</p></li>
+<li><p><strong>e_margin</strong> (<em>float</em>) – Entropy threshold to filter uncertain predictions.</p></li>
+<li><p><strong>d_margin</strong> (<em>float</em>) – Cosine similarity threshold to filter redundant samples.</p></li>
+<li><p><strong>fisher_alpha</strong> (<em>float</em>) – Weight for Fisher-based regularization.</p></li>
+<li><p><strong>fishers</strong> (<em>dict</em><em>, </em><em>optional</em>) – Precomputed Fisher information for regularization.</p></li>
+</ul>
 </dd>
+<dt class="field-even">Example<span class="colon">:</span></dt>
+<dd class="field-even"><p></p></dd>
 </dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="kn">from</span><span class="w"> </span><span class="nn">torch_ttt.engine.eata_engine</span><span class="w"> </span><span class="kn">import</span> <span class="n">EataEngine</span>
+</span><span id="line-2">
+</span><span id="line-3"><span class="n">model</span> <span class="o">=</span> <span class="n">MyModel</span><span class="p">()</span>
+</span><span id="line-4"><span class="n">engine</span> <span class="o">=</span> <span class="n">EataEngine</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="p">{</span><span class="s2">"lr"</span><span class="p">:</span> <span class="mf">1e-3</span><span class="p">})</span>
+</span><span id="line-5"><span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">engine</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">)</span>
+</span><span id="line-6">
+</span><span id="line-7"><span class="c1"># Training</span>
+</span><span id="line-8"><span class="n">engine</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+</span><span id="line-9"><span class="k">for</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">labels</span> <span class="ow">in</span> <span class="n">train_loader</span><span class="p">:</span>
+</span><span id="line-10">    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+</span><span id="line-11">    <span class="n">outputs</span><span class="p">,</span> <span class="n">loss_ttt</span> <span class="o">=</span> <span class="n">engine</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+</span><span id="line-12">    <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span> <span class="o">+</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">loss_ttt</span>
+</span><span id="line-13">    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+</span><span id="line-14">    <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+</span><span id="line-15">
+</span><span id="line-16"><span class="c1"># Compute diagonal Fisher Information</span>
+</span><span id="line-17"><span class="n">engine</span><span class="o">.</span><span class="n">compute_fishers</span><span class="p">(</span><span class="n">train_loader</span><span class="p">)</span>
+</span><span id="line-18">
+</span><span id="line-19"><span class="c1"># Inference</span>
+</span><span id="line-20"><span class="n">engine</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+</span><span id="line-21"><span class="k">for</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">labels</span> <span class="ow">in</span> <span class="n">test_loader</span><span class="p">:</span>
+</span><span id="line-22">    <span class="n">output</span><span class="p">,</span> <span class="n">loss_ttt</span> <span class="o">=</span> <span class="n">engine</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+</span></code></pre></div>
+</div>
+<p>Reference:</p>
+<blockquote>
+<div><p>“Efficient Test-Time Model Adaptation without Forgetting”,
+Yuting Zhang, Srikrishna Karanam, Terrance E. Boult, Terrence Chen, Nuno Vasconcelos
+ICML 2022</p>
+<p>Paper link: <a class="reference external" href="https://arxiv.org/pdf/2204.02610.pdf">PDF</a></p>
+</div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch_ttt.engine.eata_engine.EataEngine.collect_bn_params">
 <span class="sig-name descname"><span class="pre">collect_bn_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch_ttt/engine/eata_engine.html#EataEngine.collect_bn_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#torch_ttt.engine.eata_engine.EataEngine.collect_bn_params" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#torch_ttt.engine.eata_engine.EataEngine.collect_bn_params'"><span>#</span></a></dt>
-<dd><p>Collect affine scale + shift parameters from BatchNorm2d layers.</p>
+<dd><p>Collects affine parameters (scale and shift) from all BatchNorm2d layers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>List of parameters (<cite>weight</cite> and <cite>bias</cite>) to adapt during test-time training.</p></li>
+<li><p>Corresponding parameter names for tracking or regularization.</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tuple[List[torch.nn.Parameter], List[str]]</p>
+</dd>
+</dl>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch_ttt.engine.eata_engine.EataEngine.compute_fishers">
@@ -146,6 +199,19 @@ Zhang et al.</p>
 <li><p><strong>lr</strong> – Learning rate for dummy optimizer (used to collect parameters).</p></li>
 <li><p><strong>logger</strong> – Optional logger to print progress.</p></li>
 </ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="torch_ttt.engine.eata_engine.EataEngine.ttt_forward">
+<span class="sig-name descname"><span class="pre">ttt_forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Tensor</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/torch_ttt/engine/eata_engine.html#EataEngine.ttt_forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#torch_ttt.engine.eata_engine.EataEngine.ttt_forward" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#torch_ttt.engine.eata_engine.EataEngine.ttt_forward'"><span>#</span></a></dt>
+<dd><p>Forward pass and test-time loss computation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>inputs</strong> (<em>torch.Tensor</em>) – Input batch.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns the current prediction, and the filtered and regularized adaptation loss.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -174,6 +240,7 @@ Zhang et al.</p>
 <li><a :data-current="activeSection === '#torch_ttt.engine.eata_engine.EataEngine'" class="reference internal" href="#torch_ttt.engine.eata_engine.EataEngine"><code class="docutils literal notranslate"><span class="pre">EataEngine</span></code></a><ul>
 <li><a :data-current="activeSection === '#torch_ttt.engine.eata_engine.EataEngine.collect_bn_params'" class="reference internal" href="#torch_ttt.engine.eata_engine.EataEngine.collect_bn_params"><code class="docutils literal notranslate"><span class="pre">EataEngine.collect_bn_params()</span></code></a></li>
 <li><a :data-current="activeSection === '#torch_ttt.engine.eata_engine.EataEngine.compute_fishers'" class="reference internal" href="#torch_ttt.engine.eata_engine.EataEngine.compute_fishers"><code class="docutils literal notranslate"><span class="pre">EataEngine.compute_fishers()</span></code></a></li>
+<li><a :data-current="activeSection === '#torch_ttt.engine.eata_engine.EataEngine.ttt_forward'" class="reference internal" href="#torch_ttt.engine.eata_engine.EataEngine.ttt_forward"><code class="docutils literal notranslate"><span class="pre">EataEngine.ttt_forward()</span></code></a></li>
 </ul>
 </li>
 </ul>

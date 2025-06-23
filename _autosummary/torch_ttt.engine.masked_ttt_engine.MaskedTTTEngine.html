@@ -124,8 +124,8 @@
 <dt class="sig sig-object py" id="torch_ttt.engine.masked_ttt_engine.MaskedTTTEngine">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch_ttt.engine.masked_ttt_engine.</span></span><span class="sig-name descname"><span class="pre">MaskedTTTEngine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_token_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features_layer_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_prob</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_tokens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimization_parameters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch_ttt/engine/masked_ttt_engine.html#MaskedTTTEngine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#torch_ttt.engine.masked_ttt_engine.MaskedTTTEngine" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#torch_ttt.engine.masked_ttt_engine.MaskedTTTEngine'"><span>#</span></a></dt>
 <dd><p>Masked token prediction-based <strong>test-time training</strong> engine.</p>
-<p>This engine performs masked language modeling (MLM) as a self-supervised auxiliary task during inference.
-It randomly masks input tokens (except those in <cite>skip_tokens</cite>) and trains the model to predict them using intermediate features.</p>
+<p>This engine performs self-supervised adaptation at inference by randomly masking input tokens
+(except those in <cite>skip_tokens</cite>) and training the model to reconstruct them using intermediate features.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -141,6 +141,10 @@ It randomly masks input tokens (except those in <cite>skip_tokens</cite>) and tr
 <p class="admonition-title">Warning</p>
 <p>The module with the name specified by <code class="xref py py-attr docutils literal notranslate"><span class="pre">features_layer_name</span></code> must exist within the model.</p>
 </div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This method is designed for BERT-style transformer models that support masked token prediction.</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Example<span class="colon">:</span></dt>
 <dd class="field-odd"><p></p></dd>
@@ -152,24 +156,39 @@ It randomly masks input tokens (except those in <cite>skip_tokens</cite>) and tr
 </span><span id="line-5">
 </span><span id="line-6"><span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">engine</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">)</span>
 </span><span id="line-7">
-</span><span id="line-8"><span class="c1"># Training with TTT (Important! MaskedTTTEngine can be applied to already pretrained models)</span>
-</span><span id="line-9"><span class="n">engine</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
-</span><span id="line-10"><span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">test_loader</span><span class="p">:</span>
-</span><span id="line-11">    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
-</span><span id="line-12">    <span class="n">outputs</span><span class="p">,</span> <span class="n">loss_ttt</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">ttt_forward</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span>
-</span><span id="line-13">    <span class="n">loss_ttt</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
-</span><span id="line-14">    <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-</span><span id="line-15">
-</span><span id="line-16"><span class="c1"># Inference</span>
-</span><span id="line-17"><span class="n">engine</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
-</span><span id="line-18"><span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">test_loader</span><span class="p">:</span>
-</span><span id="line-19">    <span class="n">outputs</span><span class="p">,</span> <span class="n">loss_ttt</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">ttt_forward</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span>
+</span><span id="line-8"><span class="c1"># Training with TTT</span>
+</span><span id="line-9"><span class="c1"># (Important! MaskedTTTEngine can be applied to already pretrained models)</span>
+</span><span id="line-10"><span class="n">engine</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+</span><span id="line-11"><span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">test_loader</span><span class="p">:</span>
+</span><span id="line-12">    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+</span><span id="line-13">    <span class="n">outputs</span><span class="p">,</span> <span class="n">loss_ttt</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">ttt_forward</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span>
+</span><span id="line-14">    <span class="n">loss_ttt</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+</span><span id="line-15">    <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+</span><span id="line-16">
+</span><span id="line-17"><span class="c1"># Inference</span>
+</span><span id="line-18"><span class="n">engine</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+</span><span id="line-19"><span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">test_loader</span><span class="p">:</span>
+</span><span id="line-20">    <span class="n">outputs</span><span class="p">,</span> <span class="n">loss_ttt</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">ttt_forward</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span>
 </span></code></pre></div>
 </div>
-<dl class="simple">
-<dt>Reference:</dt><dd><p>This approach is inspired by masked language modeling and related TTT methods, e.g., MAE and self-supervised transformers.</p>
+<p>Reference:</p>
+<blockquote>
+<div><p>“Test-Time Training with Masked Autoencoders”, Yossi Gandelsman, Yu Sun, Xinlei Chen, Alexei A. Efros</p>
+<p>Paper link: <a class="reference external" href="https://papers.neurips.cc/paper_files/paper/2022/file/bcdec1c2d60f94a93b6e36f937aa0530-Paper-Conference.pdf">PDF</a></p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="torch_ttt.engine.masked_ttt_engine.MaskedTTTEngine.ttt_forward">
+<span class="sig-name descname"><span class="pre">ttt_forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Tensor</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/torch_ttt/engine/masked_ttt_engine.html#MaskedTTTEngine.ttt_forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#torch_ttt.engine.masked_ttt_engine.MaskedTTTEngine.ttt_forward" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#torch_ttt.engine.masked_ttt_engine.MaskedTTTEngine.ttt_forward'"><span>#</span></a></dt>
+<dd><p>Performs a masked token prediction forward pass for test-time training.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>inputs</strong> (<em>dict</em>) – A dictionary containing model inputs (must include <cite>input_ids</cite>).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns cross-entropy loss computed on masked tokens.</p>
 </dd>
 </dl>
+</dd></dl>
 </dd></dl>
 </section>
 </div><div class="flex justify-between items-center pt-6 mt-12 border-t border-border gap-4">
@@ -192,7 +211,10 @@ It randomly masks input tokens (except those in <cite>skip_tokens</cite>) and tr
 </div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
 <div class="sticky top-16 -mt-10 max-h-[calc(100vh-5rem)] h-full overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
 <ul>
-<li><a :data-current="activeSection === '#torch_ttt.engine.masked_ttt_engine.MaskedTTTEngine'" class="reference internal" href="#torch_ttt.engine.masked_ttt_engine.MaskedTTTEngine"><code class="docutils literal notranslate"><span class="pre">MaskedTTTEngine</span></code></a></li>
+<li><a :data-current="activeSection === '#torch_ttt.engine.masked_ttt_engine.MaskedTTTEngine'" class="reference internal" href="#torch_ttt.engine.masked_ttt_engine.MaskedTTTEngine"><code class="docutils literal notranslate"><span class="pre">MaskedTTTEngine</span></code></a><ul>
+<li><a :data-current="activeSection === '#torch_ttt.engine.masked_ttt_engine.MaskedTTTEngine.ttt_forward'" class="reference internal" href="#torch_ttt.engine.masked_ttt_engine.MaskedTTTEngine.ttt_forward"><code class="docutils literal notranslate"><span class="pre">MaskedTTTEngine.ttt_forward()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </div>
 </aside>

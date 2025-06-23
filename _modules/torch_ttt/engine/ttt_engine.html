@@ -179,179 +179,181 @@
 </span><span id="line-12"><span class="k">class</span><span class="w"> </span><span class="nc">TTTEngine</span><span class="p">(</span><span class="n">BaseEngine</span><span class="p">):</span>
 </span><span id="line-13"><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Original image rotation-based **test-time training** approach.</span>
 </span><span id="line-14">
-</span><span id="line-15"><span class="sd">    Args:</span>
-</span><span id="line-16"><span class="sd">        model (torch.nn.Module): Model to be trained with TTT.</span>
-</span><span id="line-17"><span class="sd">        features_layer_name (str): The name of the layer from which the features are extracted.</span>
-</span><span id="line-18"><span class="sd">        angle_head (torch.nn.Module, optional): The head that predicts the rotation angles.</span>
-</span><span id="line-19"><span class="sd">        angle_criterion (torch.nn.Module, optional): The loss function for the rotation angles.</span>
-</span><span id="line-20"><span class="sd">        optimization_parameters (dict): The optimization parameters for the engine.</span>
-</span><span id="line-21">
-</span><span id="line-22"><span class="sd">    Warning:</span>
-</span><span id="line-23"><span class="sd">        The module with the name :attr:`features_layer_name` should be present in the model.</span>
-</span><span id="line-24">
-</span><span id="line-25"><span class="sd">    Note:</span>
-</span><span id="line-26"><span class="sd">        :attr:`angle_head` and :attr:`angle_criterion` are optional arguments and can be user-defined. If not provided, the default shallow head and the :meth:`torch.nn.CrossEntropyLoss()` loss function are used.</span>
-</span><span id="line-27">
-</span><span id="line-28"><span class="sd">    Note:</span>
-</span><span id="line-29"><span class="sd">        The original `TTT &lt;https://github.com/yueatsprograms/ttt_cifar_release/blob/acac817fb7615850d19a8f8e79930240c9afe8b5/utils/rotation.py#L27&gt;`_ implementation uses a four-class classification task, corresponding to image rotations of 0°, 90°, 180°, and 270°.</span>
-</span><span id="line-30">
-</span><span id="line-31"><span class="sd">    :Example:</span>
+</span><span id="line-15"><span class="sd">    A test-time training method that improves model robustness by solving an auxiliary rotation prediction task during inference, encouraging better feature alignment under distribution shifts.</span>
+</span><span id="line-16">
+</span><span id="line-17"><span class="sd">    Args:</span>
+</span><span id="line-18"><span class="sd">        model (torch.nn.Module): Model to be trained with TTT.</span>
+</span><span id="line-19"><span class="sd">        features_layer_name (str): The name of the layer from which the features are extracted.</span>
+</span><span id="line-20"><span class="sd">        angle_head (torch.nn.Module, optional): The head that predicts the rotation angles.</span>
+</span><span id="line-21"><span class="sd">        angle_criterion (torch.nn.Module, optional): The loss function for the rotation angles.</span>
+</span><span id="line-22"><span class="sd">        optimization_parameters (dict): The optimization parameters for the engine.</span>
+</span><span id="line-23">
+</span><span id="line-24"><span class="sd">    Warning:</span>
+</span><span id="line-25"><span class="sd">        The module with the name :attr:`features_layer_name` should be present in the model.</span>
+</span><span id="line-26">
+</span><span id="line-27"><span class="sd">    Note:</span>
+</span><span id="line-28"><span class="sd">        :attr:`angle_head` and :attr:`angle_criterion` are optional arguments and can be user-defined. If not provided, the default shallow head and the :meth:`torch.nn.CrossEntropyLoss()` loss function are used.</span>
+</span><span id="line-29">
+</span><span id="line-30"><span class="sd">    Note:</span>
+</span><span id="line-31"><span class="sd">        The original `TTT &lt;https://github.com/yueatsprograms/ttt_cifar_release/blob/acac817fb7615850d19a8f8e79930240c9afe8b5/utils/rotation.py#L27&gt;`_ implementation uses a four-class classification task, corresponding to image rotations of 0°, 90°, 180°, and 270°.</span>
 </span><span id="line-32">
-</span><span id="line-33"><span class="sd">    .. code-block:: python</span>
+</span><span id="line-33"><span class="sd">    :Example:</span>
 </span><span id="line-34">
-</span><span id="line-35"><span class="sd">        from torch_ttt.engine.ttt_engine import TTTEngine</span>
+</span><span id="line-35"><span class="sd">    .. code-block:: python</span>
 </span><span id="line-36">
-</span><span id="line-37"><span class="sd">        model = MyModel()</span>
-</span><span id="line-38"><span class="sd">        engine = TTTEngine(model, &quot;fc1&quot;)</span>
-</span><span id="line-39"><span class="sd">        optimizer = torch.optim.Adam(engine.parameters(), lr=1e-4)</span>
-</span><span id="line-40">
-</span><span id="line-41"><span class="sd">        # Training</span>
-</span><span id="line-42"><span class="sd">        engine.train()</span>
-</span><span id="line-43"><span class="sd">        for inputs, labels in train_loader:</span>
-</span><span id="line-44"><span class="sd">            optimizer.zero_grad()</span>
-</span><span id="line-45"><span class="sd">            outputs, loss_ttt = engine(inputs)</span>
-</span><span id="line-46"><span class="sd">            loss = criterion(outputs, labels) + alpha * loss_ttt</span>
-</span><span id="line-47"><span class="sd">            loss.backward()</span>
-</span><span id="line-48"><span class="sd">            optimizer.step()</span>
-</span><span id="line-49">
-</span><span id="line-50"><span class="sd">        # Inference</span>
-</span><span id="line-51"><span class="sd">        engine.eval()</span>
-</span><span id="line-52"><span class="sd">        for inputs, labels in test_loader:</span>
-</span><span id="line-53"><span class="sd">            output, loss_ttt = engine(inputs)</span>
-</span><span id="line-54">
-</span><span id="line-55"><span class="sd">    Reference:</span>
+</span><span id="line-37"><span class="sd">        from torch_ttt.engine.ttt_engine import TTTEngine</span>
+</span><span id="line-38">
+</span><span id="line-39"><span class="sd">        model = MyModel()</span>
+</span><span id="line-40"><span class="sd">        engine = TTTEngine(model, &quot;fc1&quot;)</span>
+</span><span id="line-41"><span class="sd">        optimizer = torch.optim.Adam(engine.parameters(), lr=1e-4)</span>
+</span><span id="line-42">
+</span><span id="line-43"><span class="sd">        # Training</span>
+</span><span id="line-44"><span class="sd">        engine.train()</span>
+</span><span id="line-45"><span class="sd">        for inputs, labels in train_loader:</span>
+</span><span id="line-46"><span class="sd">            optimizer.zero_grad()</span>
+</span><span id="line-47"><span class="sd">            outputs, loss_ttt = engine(inputs)</span>
+</span><span id="line-48"><span class="sd">            loss = criterion(outputs, labels) + alpha * loss_ttt</span>
+</span><span id="line-49"><span class="sd">            loss.backward()</span>
+</span><span id="line-50"><span class="sd">            optimizer.step()</span>
+</span><span id="line-51">
+</span><span id="line-52"><span class="sd">        # Inference</span>
+</span><span id="line-53"><span class="sd">        engine.eval()</span>
+</span><span id="line-54"><span class="sd">        for inputs, labels in test_loader:</span>
+</span><span id="line-55"><span class="sd">            output, loss_ttt = engine(inputs)</span>
 </span><span id="line-56">
-</span><span id="line-57"><span class="sd">        &quot;Test-Time Training with Self-Supervision for Generalization under Distribution Shifts&quot;, Yu Sun, Xiaolong Wang, Zhuang Liu, John Miller, Alexei A. Efros, Moritz Hardt</span>
+</span><span id="line-57"><span class="sd">    Reference:</span>
 </span><span id="line-58">
-</span><span id="line-59"><span class="sd">        Paper link: `PDF &lt;http://proceedings.mlr.press/v119/sun20b/sun20b.pdf&gt;`_</span>
-</span><span id="line-60"><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="line-61">
-</span><span id="line-62">    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
-</span><span id="line-63">        <span class="bp">self</span><span class="p">,</span>
-</span><span id="line-64">        <span class="n">model</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
-</span><span id="line-65">        <span class="n">features_layer_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-</span><span id="line-66">        <span class="n">angle_head</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span id="line-67">        <span class="n">angle_criterion</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span id="line-68">        <span class="n">optimization_parameters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{},</span>
-</span><span id="line-69">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="line-70">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-</span><span id="line-71">        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
-</span><span id="line-72">        <span class="bp">self</span><span class="o">.</span><span class="n">angle_head</span> <span class="o">=</span> <span class="n">angle_head</span>
-</span><span id="line-73">        <span class="bp">self</span><span class="o">.</span><span class="n">angle_criterion</span> <span class="o">=</span> <span class="n">angle_criterion</span> <span class="k">if</span> <span class="n">angle_criterion</span> <span class="k">else</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
-</span><span id="line-74">        <span class="bp">self</span><span class="o">.</span><span class="n">features_layer_name</span> <span class="o">=</span> <span class="n">features_layer_name</span>
-</span><span id="line-75">        <span class="bp">self</span><span class="o">.</span><span class="n">optimization_parameters</span> <span class="o">=</span> <span class="n">optimization_parameters</span>
-</span><span id="line-76">
-</span><span id="line-77">        <span class="c1"># Locate and store the reference to the target module</span>
-</span><span id="line-78">        <span class="bp">self</span><span class="o">.</span><span class="n">target_module</span> <span class="o">=</span> <span class="kc">None</span>
-</span><span id="line-79">        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">module</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">named_modules</span><span class="p">():</span>
-</span><span id="line-80">            <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="n">features_layer_name</span><span class="p">:</span>
-</span><span id="line-81">                <span class="bp">self</span><span class="o">.</span><span class="n">target_module</span> <span class="o">=</span> <span class="n">module</span>
-</span><span id="line-82">                <span class="k">break</span>
-</span><span id="line-83">
-</span><span id="line-84">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_module</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="line-85">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Module &#39;</span><span class="si">{</span><span class="n">features_layer_name</span><span class="si">}</span><span class="s2">&#39; not found in the model.&quot;</span><span class="p">)</span>
-</span><span id="line-86">
+</span><span id="line-59"><span class="sd">        &quot;Test-Time Training with Self-Supervision for Generalization under Distribution Shifts&quot;, Yu Sun, Xiaolong Wang, Zhuang Liu, John Miller, Alexei A. Efros, Moritz Hardt</span>
+</span><span id="line-60">
+</span><span id="line-61"><span class="sd">        Paper link: `PDF &lt;http://proceedings.mlr.press/v119/sun20b/sun20b.pdf&gt;`_</span>
+</span><span id="line-62"><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="line-63">
+</span><span id="line-64">    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+</span><span id="line-65">        <span class="bp">self</span><span class="p">,</span>
+</span><span id="line-66">        <span class="n">model</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
+</span><span id="line-67">        <span class="n">features_layer_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+</span><span id="line-68">        <span class="n">angle_head</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="line-69">        <span class="n">angle_criterion</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="line-70">        <span class="n">optimization_parameters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{},</span>
+</span><span id="line-71">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="line-72">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+</span><span id="line-73">        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
+</span><span id="line-74">        <span class="bp">self</span><span class="o">.</span><span class="n">angle_head</span> <span class="o">=</span> <span class="n">angle_head</span>
+</span><span id="line-75">        <span class="bp">self</span><span class="o">.</span><span class="n">angle_criterion</span> <span class="o">=</span> <span class="n">angle_criterion</span> <span class="k">if</span> <span class="n">angle_criterion</span> <span class="k">else</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
+</span><span id="line-76">        <span class="bp">self</span><span class="o">.</span><span class="n">features_layer_name</span> <span class="o">=</span> <span class="n">features_layer_name</span>
+</span><span id="line-77">        <span class="bp">self</span><span class="o">.</span><span class="n">optimization_parameters</span> <span class="o">=</span> <span class="n">optimization_parameters</span>
+</span><span id="line-78">
+</span><span id="line-79">        <span class="c1"># Locate and store the reference to the target module</span>
+</span><span id="line-80">        <span class="bp">self</span><span class="o">.</span><span class="n">target_module</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span id="line-81">        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">module</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">named_modules</span><span class="p">():</span>
+</span><span id="line-82">            <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="n">features_layer_name</span><span class="p">:</span>
+</span><span id="line-83">                <span class="bp">self</span><span class="o">.</span><span class="n">target_module</span> <span class="o">=</span> <span class="n">module</span>
+</span><span id="line-84">                <span class="k">break</span>
+</span><span id="line-85">
+</span><span id="line-86">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_module</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="line-87">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Module &#39;</span><span class="si">{</span><span class="n">features_layer_name</span><span class="si">}</span><span class="s2">&#39; not found in the model.&quot;</span><span class="p">)</span>
+</span><span id="line-88">
 <div class="viewcode-block" id="TTTEngine.ttt_forward">
 <a class="viewcode-back" href="../../../_autosummary/torch_ttt.engine.ttt_engine.TTTEngine.html#torch_ttt.engine.ttt_engine.TTTEngine.ttt_forward">[docs]</a>
-</span><span id="line-87">    <span class="k">def</span><span class="w"> </span><span class="nf">ttt_forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
-</span><span id="line-88"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Forward pass of the model.</span>
-</span><span id="line-89">
-</span><span id="line-90"><span class="sd">        Args:</span>
-</span><span id="line-91"><span class="sd">            inputs (torch.Tensor): Input tensor.</span>
-</span><span id="line-92">
-</span><span id="line-93"><span class="sd">        Returns:</span>
-</span><span id="line-94"><span class="sd">            Returns the current model prediction and rotation loss value.</span>
-</span><span id="line-95"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="line-96">
-</span><span id="line-97">        <span class="c1"># has to dynamically register a hook to get the features and then remove it</span>
-</span><span id="line-98">        <span class="c1"># need this for deepcopying the engine, see https://github.com/pytorch/pytorch/pull/103001</span>
-</span><span id="line-99">        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">__capture_hook</span><span class="p">()</span> <span class="k">as</span> <span class="n">features_hook</span><span class="p">:</span>
-</span><span id="line-100">            <span class="c1"># Original forward pass, intact</span>
-</span><span id="line-101">            <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
-</span><span id="line-102">
-</span><span id="line-103">            <span class="c1"># See original code: https://github.com/yueatsprograms/ttt_cifar_release/blob/acac817fb7615850d19a8f8e79930240c9afe8b5/main.py#L69</span>
-</span><span id="line-104">            <span class="n">rotated_inputs</span><span class="p">,</span> <span class="n">rotation_labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rotate_inputs</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
-</span><span id="line-105">            <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">rotated_inputs</span><span class="p">)</span>
-</span><span id="line-106">            <span class="n">features</span> <span class="o">=</span> <span class="n">features_hook</span><span class="o">.</span><span class="n">output</span>
-</span><span id="line-107">
-</span><span id="line-108">        <span class="c1"># Build angle head if not already built</span>
-</span><span id="line-109">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">angle_head</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="line-110">            <span class="bp">self</span><span class="o">.</span><span class="n">angle_head</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__build_angle_head</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
-</span><span id="line-111">
-</span><span id="line-112">        <span class="c1"># move angle head to the same device as the features</span>
-</span><span id="line-113">        <span class="bp">self</span><span class="o">.</span><span class="n">angle_head</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">features</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
-</span><span id="line-114">        <span class="n">angles</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">angle_head</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
-</span><span id="line-115">
-</span><span id="line-116">        <span class="c1"># Compute rotation loss</span>
-</span><span id="line-117">        <span class="n">rotation_loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">angle_criterion</span><span class="p">(</span><span class="n">angles</span><span class="p">,</span> <span class="n">rotation_labels</span><span class="p">)</span>
-</span><span id="line-118">        <span class="k">return</span> <span class="n">outputs</span><span class="p">,</span> <span class="n">rotation_loss</span></div>
+</span><span id="line-89">    <span class="k">def</span><span class="w"> </span><span class="nf">ttt_forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
+</span><span id="line-90"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Forward pass of the model.</span>
+</span><span id="line-91">
+</span><span id="line-92"><span class="sd">        Args:</span>
+</span><span id="line-93"><span class="sd">            inputs (torch.Tensor): Input tensor.</span>
+</span><span id="line-94">
+</span><span id="line-95"><span class="sd">        Returns:</span>
+</span><span id="line-96"><span class="sd">            Returns the current model prediction and rotation loss value.</span>
+</span><span id="line-97"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="line-98">
+</span><span id="line-99">        <span class="c1"># has to dynamically register a hook to get the features and then remove it</span>
+</span><span id="line-100">        <span class="c1"># need this for deepcopying the engine, see https://github.com/pytorch/pytorch/pull/103001</span>
+</span><span id="line-101">        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">__capture_hook</span><span class="p">()</span> <span class="k">as</span> <span class="n">features_hook</span><span class="p">:</span>
+</span><span id="line-102">            <span class="c1"># Original forward pass, intact</span>
+</span><span id="line-103">            <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+</span><span id="line-104">
+</span><span id="line-105">            <span class="c1"># See original code: https://github.com/yueatsprograms/ttt_cifar_release/blob/acac817fb7615850d19a8f8e79930240c9afe8b5/main.py#L69</span>
+</span><span id="line-106">            <span class="n">rotated_inputs</span><span class="p">,</span> <span class="n">rotation_labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rotate_inputs</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+</span><span id="line-107">            <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">rotated_inputs</span><span class="p">)</span>
+</span><span id="line-108">            <span class="n">features</span> <span class="o">=</span> <span class="n">features_hook</span><span class="o">.</span><span class="n">output</span>
+</span><span id="line-109">
+</span><span id="line-110">        <span class="c1"># Build angle head if not already built</span>
+</span><span id="line-111">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">angle_head</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="line-112">            <span class="bp">self</span><span class="o">.</span><span class="n">angle_head</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__build_angle_head</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+</span><span id="line-113">
+</span><span id="line-114">        <span class="c1"># move angle head to the same device as the features</span>
+</span><span id="line-115">        <span class="bp">self</span><span class="o">.</span><span class="n">angle_head</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">features</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+</span><span id="line-116">        <span class="n">angles</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">angle_head</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+</span><span id="line-117">
+</span><span id="line-118">        <span class="c1"># Compute rotation loss</span>
+</span><span id="line-119">        <span class="n">rotation_loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">angle_criterion</span><span class="p">(</span><span class="n">angles</span><span class="p">,</span> <span class="n">rotation_labels</span><span class="p">)</span>
+</span><span id="line-120">        <span class="k">return</span> <span class="n">outputs</span><span class="p">,</span> <span class="n">rotation_loss</span></div>
 
-</span><span id="line-119">
-</span><span id="line-120">    <span class="c1"># Follow this code (expand case): https://github.com/yueatsprograms/ttt_cifar_release/blob/acac817fb7615850d19a8f8e79930240c9afe8b5/utils/rotation.py#L27</span>
-</span><span id="line-121">    <span class="k">def</span><span class="w"> </span><span class="nf">__rotate_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
-</span><span id="line-122"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Rotate the input images by 0, 90, 180, and 270 degrees.&quot;&quot;&quot;</span>
-</span><span id="line-123">        <span class="n">device</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">())</span><span class="o">.</span><span class="n">device</span>
-</span><span id="line-124">        <span class="n">rotated_image_90</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
-</span><span id="line-125">        <span class="n">rotated_image_180</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="mi">180</span><span class="p">)</span>
-</span><span id="line-126">        <span class="n">rotated_image_270</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="mi">270</span><span class="p">)</span>
-</span><span id="line-127">        <span class="n">batch_size</span> <span class="o">=</span> <span class="n">inputs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</span><span id="line-128">        <span class="n">inputs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">inputs</span><span class="p">,</span> <span class="n">rotated_image_90</span><span class="p">,</span> <span class="n">rotated_image_180</span><span class="p">,</span> <span class="n">rotated_image_270</span><span class="p">],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-</span><span id="line-129">        <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">batch_size</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">batch_size</span> <span class="o">+</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">batch_size</span> <span class="o">+</span> <span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="n">batch_size</span>
-</span><span id="line-130">        <span class="k">return</span> <span class="n">inputs</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
-</span><span id="line-131">
-</span><span id="line-132">    <span class="k">def</span><span class="w"> </span><span class="nf">__build_angle_head</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">features</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">:</span>
-</span><span id="line-133"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Build the angle head.&quot;&quot;&quot;</span>
-</span><span id="line-134">        <span class="n">device</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">())</span><span class="o">.</span><span class="n">device</span>
-</span><span id="line-135">
-</span><span id="line-136">        <span class="c1"># See original implementation: https://github.com/yueatsprograms/ttt_cifar_release/blob/acac817fb7615850d19a8f8e79930240c9afe8b5/utils/test_helpers.py#L33C10-L33C39</span>
-</span><span id="line-137">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">features</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-</span><span id="line-138">            <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
-</span><span id="line-139">                <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">features</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">16</span><span class="p">),</span>
-</span><span id="line-140">                <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
-</span><span id="line-141">                <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+</span><span id="line-121">
+</span><span id="line-122">    <span class="c1"># Follow this code (expand case): https://github.com/yueatsprograms/ttt_cifar_release/blob/acac817fb7615850d19a8f8e79930240c9afe8b5/utils/rotation.py#L27</span>
+</span><span id="line-123">    <span class="k">def</span><span class="w"> </span><span class="nf">__rotate_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
+</span><span id="line-124"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Rotate the input images by 0, 90, 180, and 270 degrees.&quot;&quot;&quot;</span>
+</span><span id="line-125">        <span class="n">device</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">())</span><span class="o">.</span><span class="n">device</span>
+</span><span id="line-126">        <span class="n">rotated_image_90</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
+</span><span id="line-127">        <span class="n">rotated_image_180</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="mi">180</span><span class="p">)</span>
+</span><span id="line-128">        <span class="n">rotated_image_270</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="mi">270</span><span class="p">)</span>
+</span><span id="line-129">        <span class="n">batch_size</span> <span class="o">=</span> <span class="n">inputs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span><span id="line-130">        <span class="n">inputs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">inputs</span><span class="p">,</span> <span class="n">rotated_image_90</span><span class="p">,</span> <span class="n">rotated_image_180</span><span class="p">,</span> <span class="n">rotated_image_270</span><span class="p">],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span><span id="line-131">        <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">batch_size</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">batch_size</span> <span class="o">+</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">batch_size</span> <span class="o">+</span> <span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="n">batch_size</span>
+</span><span id="line-132">        <span class="k">return</span> <span class="n">inputs</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</span><span id="line-133">
+</span><span id="line-134">    <span class="k">def</span><span class="w"> </span><span class="nf">__build_angle_head</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">features</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">:</span>
+</span><span id="line-135"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Build the angle head.&quot;&quot;&quot;</span>
+</span><span id="line-136">        <span class="n">device</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">())</span><span class="o">.</span><span class="n">device</span>
+</span><span id="line-137">
+</span><span id="line-138">        <span class="c1"># See original implementation: https://github.com/yueatsprograms/ttt_cifar_release/blob/acac817fb7615850d19a8f8e79930240c9afe8b5/utils/test_helpers.py#L33C10-L33C39</span>
+</span><span id="line-139">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">features</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+</span><span id="line-140">            <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+</span><span id="line-141">                <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">features</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">16</span><span class="p">),</span>
 </span><span id="line-142">                <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
-</span><span id="line-143">                <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
-</span><span id="line-144">            <span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
-</span><span id="line-145">
-</span><span id="line-146">        <span class="c1"># See original implementation: https://github.com/yueatsprograms/ttt_cifar_release/blob/acac817fb7615850d19a8f8e79930240c9afe8b5/models/SSHead.py#L29</span>
-</span><span id="line-147">        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">features</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
-</span><span id="line-148">            <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
-</span><span id="line-149">                <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">features</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
-</span><span id="line-150">                <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
-</span><span id="line-151">                <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
-</span><span id="line-152">                <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">AdaptiveAvgPool2d</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span>  <span class="c1"># Global Average Pooling</span>
-</span><span id="line-153">                <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Flatten</span><span class="p">(),</span>
-</span><span id="line-154">            <span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
-</span><span id="line-155">
-</span><span id="line-156">        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">features</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>  <span class="c1"># For 3D inputs (batch, channels, depth, height, width)</span>
-</span><span id="line-157">            <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
-</span><span id="line-158">                <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Conv3d</span><span class="p">(</span><span class="n">features</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">16</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
-</span><span id="line-159">                <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
-</span><span id="line-160">                <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Conv3d</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
-</span><span id="line-161">                <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">AdaptiveAvgPool3d</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span>  <span class="c1"># Global Average Pooling</span>
-</span><span id="line-162">                <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Flatten</span><span class="p">(),</span>
-</span><span id="line-163">            <span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
-</span><span id="line-164">
-</span><span id="line-165">        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid input tensor shape.&quot;</span><span class="p">)</span>
+</span><span id="line-143">                <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+</span><span id="line-144">                <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+</span><span id="line-145">                <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+</span><span id="line-146">            <span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</span><span id="line-147">
+</span><span id="line-148">        <span class="c1"># See original implementation: https://github.com/yueatsprograms/ttt_cifar_release/blob/acac817fb7615850d19a8f8e79930240c9afe8b5/models/SSHead.py#L29</span>
+</span><span id="line-149">        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">features</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+</span><span id="line-150">            <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+</span><span id="line-151">                <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">features</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+</span><span id="line-152">                <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+</span><span id="line-153">                <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+</span><span id="line-154">                <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">AdaptiveAvgPool2d</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span>  <span class="c1"># Global Average Pooling</span>
+</span><span id="line-155">                <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Flatten</span><span class="p">(),</span>
+</span><span id="line-156">            <span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</span><span id="line-157">
+</span><span id="line-158">        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">features</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>  <span class="c1"># For 3D inputs (batch, channels, depth, height, width)</span>
+</span><span id="line-159">            <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+</span><span id="line-160">                <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Conv3d</span><span class="p">(</span><span class="n">features</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">16</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
+</span><span id="line-161">                <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+</span><span id="line-162">                <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Conv3d</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
+</span><span id="line-163">                <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">AdaptiveAvgPool3d</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span>  <span class="c1"># Global Average Pooling</span>
+</span><span id="line-164">                <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Flatten</span><span class="p">(),</span>
+</span><span id="line-165">            <span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
 </span><span id="line-166">
-</span><span id="line-167">    <span class="nd">@contextmanager</span>
-</span><span id="line-168">    <span class="k">def</span><span class="w"> </span><span class="nf">__capture_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="line-169"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Context manager to capture features via a forward hook.&quot;&quot;&quot;</span>
-</span><span id="line-170">
-</span><span id="line-171">        <span class="k">class</span><span class="w"> </span><span class="nc">OutputHook</span><span class="p">:</span>
-</span><span id="line-172">            <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="line-173">                <span class="bp">self</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="kc">None</span>
-</span><span id="line-174">
-</span><span id="line-175">            <span class="k">def</span><span class="w"> </span><span class="nf">hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
-</span><span id="line-176">                <span class="bp">self</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="n">output</span>
-</span><span id="line-177">
-</span><span id="line-178">        <span class="n">features_hook</span> <span class="o">=</span> <span class="n">OutputHook</span><span class="p">()</span>
-</span><span id="line-179">        <span class="n">hook_handle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_module</span><span class="o">.</span><span class="n">register_forward_hook</span><span class="p">(</span><span class="n">features_hook</span><span class="o">.</span><span class="n">hook</span><span class="p">)</span>
-</span><span id="line-180">
-</span><span id="line-181">        <span class="k">try</span><span class="p">:</span>
-</span><span id="line-182">            <span class="k">yield</span> <span class="n">features_hook</span>
-</span><span id="line-183">        <span class="k">finally</span><span class="p">:</span>
-</span><span id="line-184">            <span class="n">hook_handle</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span></div>
+</span><span id="line-167">        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid input tensor shape.&quot;</span><span class="p">)</span>
+</span><span id="line-168">
+</span><span id="line-169">    <span class="nd">@contextmanager</span>
+</span><span id="line-170">    <span class="k">def</span><span class="w"> </span><span class="nf">__capture_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="line-171"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Context manager to capture features via a forward hook.&quot;&quot;&quot;</span>
+</span><span id="line-172">
+</span><span id="line-173">        <span class="k">class</span><span class="w"> </span><span class="nc">OutputHook</span><span class="p">:</span>
+</span><span id="line-174">            <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="line-175">                <span class="bp">self</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span id="line-176">
+</span><span id="line-177">            <span class="k">def</span><span class="w"> </span><span class="nf">hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
+</span><span id="line-178">                <span class="bp">self</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="n">output</span>
+</span><span id="line-179">
+</span><span id="line-180">        <span class="n">features_hook</span> <span class="o">=</span> <span class="n">OutputHook</span><span class="p">()</span>
+</span><span id="line-181">        <span class="n">hook_handle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_module</span><span class="o">.</span><span class="n">register_forward_hook</span><span class="p">(</span><span class="n">features_hook</span><span class="o">.</span><span class="n">hook</span><span class="p">)</span>
+</span><span id="line-182">
+</span><span id="line-183">        <span class="k">try</span><span class="p">:</span>
+</span><span id="line-184">            <span class="k">yield</span> <span class="n">features_hook</span>
+</span><span id="line-185">        <span class="k">finally</span><span class="p">:</span>
+</span><span id="line-186">            <span class="n">hook_handle</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span></div>
 
 </span></code></pre></div>
     </div><div class="flex justify-between items-center pt-6 mt-12 border-t border-border gap-4">

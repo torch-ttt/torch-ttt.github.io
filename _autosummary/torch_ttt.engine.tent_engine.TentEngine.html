@@ -124,23 +124,56 @@
 <dt class="sig sig-object py" id="torch_ttt.engine.tent_engine.TentEngine">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch_ttt.engine.tent_engine.</span></span><span class="sig-name descname"><span class="pre">TentEngine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimization_parameters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch_ttt/engine/tent_engine.html#TentEngine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#torch_ttt.engine.tent_engine.TentEngine" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#torch_ttt.engine.tent_engine.TentEngine'"><span>#</span></a></dt>
 <dd><p><strong>TENT</strong>: Fully test-time adaptation by entropy minimization.</p>
+<p>TENT adapts models at inference by minimizing prediction entropy, encouraging confident outputs on unlabeled data. It updates only BatchNorm affine parameters and requires no labels or training supervision.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>model</strong> (<em>torch.nn.Module</em>) – The model to adapt.</p></li>
-<li><p><strong>optimization_parameters</strong> (<em>dict</em>) – Hyperparameters for adaptation.</p></li>
+<li><p><strong>model</strong> (<em>torch.nn.Module</em>) – Model to be adapted at test-time.</p></li>
+<li><p><strong>optimization_parameters</strong> (<em>dict</em>) – Optimizer configuration for adaptation (e.g. learning rate).</p></li>
 </ul>
 </dd>
+<dt class="field-even">Example<span class="colon">:</span></dt>
+<dd class="field-even"><p></p></dd>
 </dl>
-<dl class="simple">
-<dt>Reference:</dt><dd><p>“TENT: Fully Test-Time Adaptation by Entropy Minimization”
-Dequan Wang, Evan Shelhamer, et al.</p>
-</dd>
-</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="kn">from</span><span class="w"> </span><span class="nn">torch_ttt.engine.tent_engine</span><span class="w"> </span><span class="kn">import</span> <span class="n">TentEngine</span>
+</span><span id="line-2">
+</span><span id="line-3"><span class="n">model</span> <span class="o">=</span> <span class="n">MyModel</span><span class="p">()</span>
+</span><span id="line-4"><span class="n">engine</span> <span class="o">=</span> <span class="n">TentEngine</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="p">{</span><span class="s2">"lr"</span><span class="p">:</span> <span class="mf">1e-3</span><span class="p">})</span>
+</span><span id="line-5"><span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">engine</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">)</span>
+</span><span id="line-6">
+</span><span id="line-7"><span class="c1"># Training</span>
+</span><span id="line-8"><span class="n">engine</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+</span><span id="line-9"><span class="k">for</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">labels</span> <span class="ow">in</span> <span class="n">train_loader</span><span class="p">:</span>
+</span><span id="line-10">    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+</span><span id="line-11">    <span class="n">outputs</span><span class="p">,</span> <span class="n">loss_ttt</span> <span class="o">=</span> <span class="n">engine</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+</span><span id="line-12">    <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span> <span class="o">+</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">loss_ttt</span>
+</span><span id="line-13">    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+</span><span id="line-14">    <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+</span><span id="line-15">
+</span><span id="line-16"><span class="c1"># Inference</span>
+</span><span id="line-17"><span class="n">engine</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+</span><span id="line-18"><span class="k">for</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">labels</span> <span class="ow">in</span> <span class="n">test_loader</span><span class="p">:</span>
+</span><span id="line-19">    <span class="n">output</span><span class="p">,</span> <span class="n">loss_ttt</span> <span class="o">=</span> <span class="n">engine</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+</span></code></pre></div>
+</div>
+<p>Reference:</p>
+<blockquote>
+<div><p>“Tent: Fully Test-Time Adaptation by Entropy Minimization”,
+Dequan Wang, Evan Shelhamer, Shaoteng Liu, Bruno Vasconcelos, Trevor Darrell</p>
+<p>Paper link: <a class="reference external" href="https://arxiv.org/pdf/2006.10726.pdf">PDF</a></p>
+</div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch_ttt.engine.tent_engine.TentEngine.ttt_forward">
 <span class="sig-name descname"><span class="pre">ttt_forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Tensor</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/torch_ttt/engine/tent_engine.html#TentEngine.ttt_forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#torch_ttt.engine.tent_engine.TentEngine.ttt_forward" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#torch_ttt.engine.tent_engine.TentEngine.ttt_forward'"><span>#</span></a></dt>
-<dd><p>Forward pass and entropy loss computation.</p>
+<dd><p>Forward pass of the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>inputs</strong> (<em>torch.Tensor</em>) – Input tensor.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The current model prediction and the entropy loss value.</p>
+</dd>
+</dl>
 </dd></dl>
 </dd></dl>
 </section>
