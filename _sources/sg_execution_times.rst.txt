@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:00.000** total execution time for 3 files **from all galleries**:
+**00:00.000** total execution time for 4 files **from all galleries**:
 
 .. container::
 
@@ -39,5 +39,8 @@ Computation times
      - 00:00.000
      - 0.0
    * - :ref:`sphx_glr_auto_examples_03_mae_bert.py` (``../examples/03_mae_bert.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr_auto_examples_04_mnist_it3.py` (``../examples/04_mnist_it3.py``)
      - 00:00.000
      - 0.0

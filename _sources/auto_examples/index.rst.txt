@@ -69,6 +69,23 @@ Additionally, you will find examples of how specific TTT methods are applied, en
     </div>
 
 
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="In this tutorial, we explore how the idempotence-based Idempotent Test-Time Training (IT3) approach can improve model performance during inference when data is corrupted by Gaussian noise, using the torch-ttt Engine functionality — specifically the IT3Engine class.">
+
+.. only:: html
+
+  .. image:: /auto_examples/images/thumb/sphx_glr_04_mnist_it3_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_04_mnist_it3.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">IT3 for MNIST Classification</div>
+    </div>
+
+
 .. thumbnail-parent-div-close
 
 .. raw:: html
@@ -82,6 +99,7 @@ Additionally, you will find examples of how specific TTT methods are applied, en
    /auto_examples/01_mnist_TTT
    /auto_examples/02_imagenet_tent
    /auto_examples/03_mae_bert
+   /auto_examples/04_mnist_it3
 
 
 
